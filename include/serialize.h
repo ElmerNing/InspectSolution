@@ -3,18 +3,34 @@
 
 #include <QDataStream>
 #include <QStack>
+#include <QHash>
 
-//ĞòÁĞ»¯Ê±,´¢´æµ±Ç°¶ÔÏóµÄÒ»¸ö¶ÑÕ»
+//åºåˆ—åŒ–æ—¶,å‚¨å­˜å½“å‰å¯¹è±¡çš„ä¸€ä¸ªå †æ ˆ
 extern QStack<QObject*> __serial_current_obj;
+//QMetaObjectä¸ç±»åçš„ä¸€ä¸ªæ˜ å°„
+QHash<QString, const QMetaObject*>& __metaObjects_hash();
 
-//×¢²á¿ÉĞòÁĞ»¯µÄÀà,´ËÀà ±ØĞë¼Ì³ĞÓÚQObject
+template <class T>
+class SerializeClassRegister
+{
+public:
+    SerializeClassRegister()
+    {
+        __metaObjects_hash().insert( QString(T::staticMetaObject.className()),
+                                    &(T::staticMetaObject) );
+    }
+};
+
+//æ³¨å†Œå¯åºåˆ—åŒ–çš„ç±»,æ­¤ç±» å¿…é¡»ç»§æ‰¿äºQObject
 #define SERIALIZE_ENABLE_CLASS(classname) \
     friend QDataStream& operator<<(QDataStream&, classname *); \
     friend QDataStream& operator<<(QDataStream&, classname &); \
     friend QDataStream& operator>>(QDataStream&, classname *&); \
-    friend QDataStream& operator>>(QDataStream&, classname &);  
+    friend QDataStream& operator>>(QDataStream&, classname &); \
+    virtual void __serialize_helper(QDataStream&); \
+    virtual void __de_serialize_helper(QDataStream&);
 
-//×¢²á¿ÉĞòÁĞ»¯µÄ enum
+//æ³¨å†Œå¯åºåˆ—åŒ–çš„ enum
 #define SERIALIZE_ENABLE_ENUM(enumname) \
 inline QDataStream& operator>>(QDataStream& stream, enumname & data) \
 { \
@@ -27,12 +43,20 @@ inline QDataStream& operator<<(QDataStream& stream, enumname & data) \
     return stream;\
 }
 
-//ĞòÁĞ»¯
+//åºåˆ—åŒ–
+//Q_ASSERT(dynamic_cast<classname*>(data));
+//stream << (*data);
+//return stream;
 #define SERIALIZE_BEGIN(classname) \
+SerializeClassRegister<classname> __##classname##_SerializeClassregister; \
+void classname::__serialize_helper(QDataStream& stream) \
+{ \
+    stream<< QString(#classname); \
+    stream<<(*this); \
+} \
 QDataStream& operator<<(QDataStream& stream, classname * data) \
 { \
-    Q_ASSERT(dynamic_cast<classname*>(data)); \
-    stream << (*data); \
+    data->__serialize_helper(stream); \
     return stream; \
 } \
 QDataStream& operator<<(QDataStream& stream, classname & data) \
@@ -40,11 +64,11 @@ QDataStream& operator<<(QDataStream& stream, classname & data) \
     Q_ASSERT(dynamic_cast<QObject*>( &data )); \
     stream<< QString(#classname);//data .metaObject()->className()); 
 
-//ĞòÁĞ»¯ÆÕÍ¨±äÁ¿
+//åºåˆ—åŒ–æ™®é€šå˜é‡
 #define SERIALIZE_VAR(var) \
     stream<<data. var;
 
-//ĞòÁĞ»¯Ò»¸ö»ùÀà
+//åºåˆ—åŒ–ä¸€ä¸ªåŸºç±»
 #define SERIALIZE_BASE(basename) \
     stream<<( basename & )data;
 
@@ -52,13 +76,29 @@ QDataStream& operator<<(QDataStream& stream, classname & data) \
     return stream; \
 }
 
-//·´ĞòÁĞ»¯
+//ååºåˆ—åŒ–
+//Q_ASSERT(!__serial_current_obj.isEmpty());
+//data = new classname (__serial_current_obj.top());
+//stream >> (*data);
+//return stream;
 #define DE_SERIALIZE_BEGIN(classname) \
+void classname::__de_serialize_helper(QDataStream& stream) \
+{\
+    stream>>(*this); \
+}\
 QDataStream& operator>>(QDataStream& stream, classname *& data) \
 { \
-    Q_ASSERT(!__serial_current_obj.isEmpty()); \
-    data = new classname (__serial_current_obj.top()); \
-    stream >> (*data); \
+    QString __classname__; \
+    stream>>__classname__; \
+    const QMetaObject* mobj = __metaObjects_hash().value(__classname__); \
+    QObject* __parent__ = __serial_current_obj.top(); \
+    data = (classname *)mobj->newInstance(Q_ARG(QObject*, __parent__)); \
+    if (data == NULL) \
+    { \
+        stream.setStatus(QDataStream::ReadCorruptData); \
+        return stream; \
+    } \
+    data->__de_serialize_helper(stream); \
     return stream; \
 } \
 QDataStream& operator>>(QDataStream& stream, classname & data) \
@@ -75,11 +115,11 @@ QDataStream& operator>>(QDataStream& stream, classname & data) \
     return stream; \
     }
 
-//·´ĞòÁĞ»¯ÆÕÍ¨±äÁ¿
+//ååºåˆ—åŒ–æ™®é€šå˜é‡
 #define DE_SERIALIZE_VAR(var) \
     stream>> data. var;
 
-//·´ĞòÁĞ»¯Ò»¸ö»ùÀà
+//ååºåˆ—åŒ–ä¸€ä¸ªåŸºç±»
 #define DE_SERIALIZE_BASE(basename) \
     stream>>( basename & )data;
 

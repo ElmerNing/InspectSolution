@@ -1,11 +1,18 @@
 #include "stdafx.h"
-
+#include "serialize.h"
 QStack<QObject*> __serial_current_obj;
 
+QHash<QString, const QMetaObject*>& __metaObjects_hash()
+{
+    static QHash<QString, const QMetaObject*> metaObjects_hash;
+    return metaObjects_hash;
+}
+
+
 /*
-    ĞòÁĞ»¯,Ïß³Ì²»°²È«µÄ
+    åºåˆ—åŒ–,çº¿ç¨‹ä¸å®‰å…¨çš„
     
-    ÓÃ·¨
+    ç”¨æ³•
 
     in myclass.h
 

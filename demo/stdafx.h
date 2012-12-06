@@ -1,7 +1,7 @@
 #ifndef STDAFX_H
 #define STDAFX_H
 
-#include "D:\SDK\Visual Leak Detector\include\vld.h"
+//#include "D:\SDK\Visual Leak Detector\include\vld.h"
 
 #include <stdlib.h>
 

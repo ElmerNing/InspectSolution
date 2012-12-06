@@ -13,7 +13,7 @@ CONFIG   += console
 CONFIG   -= app_bundle
 
 #LIBS need to be configure again
-LIBS += -lD:\Proj\Solution\Solution\lib\Solution
+LIBS += -lD:\Proj\Solution\InspectSolution\lib\Solution
 
 INCLUDEPATH += ./\
     ../include

@@ -24,18 +24,26 @@ SOURCES += \
     src/focalaw.cpp \
     src/gconfig.cpp \
     src/probe.cpp \
-    src/wedge.cpp
+    src/wedge.cpp \
+    src/solutionmodule.cpp \
+    src/serialize.cpp \
+    src/scsolution.cpp \
+    src/scgrouplaw.cpp \
+    src/enummap.cpp
 
 HEADERS += \
     include/solution.h \
     stdafx.h \
     include/grouplaw.h \
-    src/focalaw.h \
-    src/gconfig.h \
-    src/probe.h \
-    src/wedge.h \
     include/wedge.h \
     include/probe.h \
     include/gconfig.h \
     include/focalaw.h \
-    include/beamlaw.h
+    include/beamlaw.h \
+    include/solutionmodule.h \
+    include/serialize.h \
+    include/scsolution.h \
+    include/scgrouplaw.h \
+    include/qrange.h \
+    include/qobjvector.h \
+    include/globaltype.h

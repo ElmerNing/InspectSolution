@@ -4,6 +4,7 @@
 #include "solution.h"
 #include "scsolution.h"
 
+
 int main(int argc, char *argv[])
 {
     SCsolution solution;
@@ -40,4 +41,5 @@ int main(int argc, char *argv[])
         stream>>ss;
         file.close();
     }
+    
 }
