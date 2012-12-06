@@ -10,9 +10,9 @@ QHash<QString, const QMetaObject*>& __metaObjects_hash()
 
 
 /*
-    åºåˆ—åŒ–,çº¿ç¨‹ä¸å®‰å…¨çš„
+    ĞòÁĞ»¯,Ïß³Ì²»°²È«µÄ
     
-    ç”¨æ³•
+    ÓÃ·¨
 
     in myclass.h
 

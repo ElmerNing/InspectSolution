@@ -5,9 +5,9 @@
 #include <QStack>
 #include <QHash>
 
-//åºåˆ—åŒ–æ—¶,å‚¨å­˜å½“å‰å¯¹è±¡çš„ä¸€ä¸ªå †æ ˆ
+//ĞòÁĞ»¯Ê±,´¢´æµ±Ç°¶ÔÏóµÄÒ»¸ö¶ÑÕ»
 extern QStack<QObject*> __serial_current_obj;
-//QMetaObjectä¸ç±»åçš„ä¸€ä¸ªæ˜ å°„
+//QMetaObjectÓëÀàÃûµÄÒ»¸öÓ³Éä
 QHash<QString, const QMetaObject*>& __metaObjects_hash();
 
 template <class T>
@@ -21,7 +21,7 @@ public:
     }
 };
 
-//æ³¨å†Œå¯åºåˆ—åŒ–çš„ç±»,æ­¤ç±» å¿…é¡»ç»§æ‰¿äºQObject
+//×¢²á¿ÉĞòÁĞ»¯µÄÀà,´ËÀà ±ØĞë¼Ì³ĞÓÚQObject
 #define SERIALIZE_ENABLE_CLASS(classname) \
     friend QDataStream& operator<<(QDataStream&, classname *); \
     friend QDataStream& operator<<(QDataStream&, classname &); \
@@ -30,7 +30,7 @@ public:
     virtual void __serialize_helper(QDataStream&); \
     virtual void __de_serialize_helper(QDataStream&);
 
-//æ³¨å†Œå¯åºåˆ—åŒ–çš„ enum
+//×¢²á¿ÉĞòÁĞ»¯µÄ enum
 #define SERIALIZE_ENABLE_ENUM(enumname) \
 inline QDataStream& operator>>(QDataStream& stream, enumname & data) \
 { \
@@ -43,7 +43,7 @@ inline QDataStream& operator<<(QDataStream& stream, enumname & data) \
     return stream;\
 }
 
-//åºåˆ—åŒ–
+//ĞòÁĞ»¯
 //Q_ASSERT(dynamic_cast<classname*>(data));
 //stream << (*data);
 //return stream;
@@ -64,11 +64,11 @@ QDataStream& operator<<(QDataStream& stream, classname & data) \
     Q_ASSERT(dynamic_cast<QObject*>( &data )); \
     stream<< QString(#classname);//data .metaObject()->className()); 
 
-//åºåˆ—åŒ–æ™®é€šå˜é‡
+//ĞòÁĞ»¯ÆÕÍ¨±äÁ¿
 #define SERIALIZE_VAR(var) \
     stream<<data. var;
 
-//åºåˆ—åŒ–ä¸€ä¸ªåŸºç±»
+//ĞòÁĞ»¯Ò»¸ö»ùÀà
 #define SERIALIZE_BASE(basename) \
     stream<<( basename & )data;
 
@@ -76,7 +76,7 @@ QDataStream& operator<<(QDataStream& stream, classname & data) \
     return stream; \
 }
 
-//ååºåˆ—åŒ–
+//·´ĞòÁĞ»¯
 //Q_ASSERT(!__serial_current_obj.isEmpty());
 //data = new classname (__serial_current_obj.top());
 //stream >> (*data);
@@ -115,11 +115,11 @@ QDataStream& operator>>(QDataStream& stream, classname & data) \
     return stream; \
     }
 
-//ååºåˆ—åŒ–æ™®é€šå˜é‡
+//·´ĞòÁĞ»¯ÆÕÍ¨±äÁ¿
 #define DE_SERIALIZE_VAR(var) \
     stream>> data. var;
 
-//ååºåˆ—åŒ–ä¸€ä¸ªåŸºç±»
+//·´ĞòÁĞ»¯Ò»¸ö»ùÀà
 #define DE_SERIALIZE_BASE(basename) \
     stream>>( basename & )data;
 
