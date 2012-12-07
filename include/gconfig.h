@@ -98,10 +98,10 @@ enum RxChannel
 SERIALIZE_ENABLE_ENUM(RxChannel);
 
 
-class Gconfig : public SolutionModule
+class Gconfig
 {
 public:
-    explicit Gconfig(QObject *parent = 0);
+    explicit Gconfig();
     virtual ~Gconfig();
 
     //设置为默认值

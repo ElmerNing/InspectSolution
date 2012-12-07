@@ -1,8 +1,7 @@
 #include "stdafx.h"
-#include "scgrouplaw.h"
+#include "grouplaw_sc.h"
 
-SCgroupLaw::SCgroupLaw(QObject *parent)
-    : GroupLaw(parent)
+SCgroupLaw::SCgroupLaw()
 {
 
 }

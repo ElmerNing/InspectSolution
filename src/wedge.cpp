@@ -29,8 +29,7 @@ typedef struct
 } __WR_WEDGE;
 #pragma pack(pop) //±£´æ¶ÔÆë×´Ì¬
 
-Wedge::Wedge(QObject *parent) :
-    SolutionModule(parent)
+Wedge::Wedge()
 {
     Default();
 }

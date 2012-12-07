@@ -19,11 +19,10 @@ enum ProbeType
 };
 SERIALIZE_ENABLE_ENUM(ProbeType);
 
-class Probe : public SolutionModule
+class Probe
 {
-    Q_OBJECT
 public:
-    explicit Probe(QObject *parent = 0);
+    explicit Probe();
     virtual ~Probe();
 
     //设置为默认值

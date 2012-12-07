@@ -24,10 +24,10 @@ enum WedgeType
 };
 SERIALIZE_ENABLE_ENUM(WedgeType);
 
-class Wedge : public SolutionModule
+class Wedge
 {
 public:
-    explicit Wedge::Wedge(QObject *parent = NULL);
+    explicit Wedge();
     virtual ~Wedge();
 
     //设置为默认值

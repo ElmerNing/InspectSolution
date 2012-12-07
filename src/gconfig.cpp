@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "gconfig.h"
 
-Gconfig::Gconfig(QObject *parent) :
-    SolutionModule(parent) ,
+Gconfig::Gconfig() :
     m_boardEnable(3, true) ,
     m_rxChanelEnable(32, true)
 {

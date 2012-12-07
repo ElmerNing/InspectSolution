@@ -1,12 +1,11 @@
 
 #include "stdafx.h"
 #include <QCoreApplication>
-#include "solution.h"
-#include "scsolution.h"
+#include "solution_sc.h"
 
 
 int main(int argc, char *argv[])
-{
+{/*
     SCsolution solution;
     solution.m_velocity = 111.11f;
     solution.m_config.DampUt1(UD_500R);
@@ -40,6 +39,6 @@ int main(int argc, char *argv[])
         SCsolution ss;
         stream>>ss;
         file.close();
-    }
+    }*/
     
 }

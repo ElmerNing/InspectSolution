@@ -56,10 +56,10 @@ enum TTLSource
 SERIALIZE_ENABLE_ENUM(TTLSource);
 
 
-class GroupLaw : public SolutionModule
+class GroupLaw
 {
 public:
-    explicit GroupLaw(QObject *parent = 0);
+    explicit GroupLaw();
     virtual ~GroupLaw();
 
     //设置为默认值
@@ -115,13 +115,8 @@ public:
     ProbeChannel Probe() const { return m_probe; }
     void Probe(ProbeChannel val) { m_probe = val; }
 
-    //BeamLaws
-    BeamLawVector& BeamLaws() {return m_beamLaws;};
-
 private:
-    //BeamLaws
-    BeamLawVector m_beamLaws;
-
+    QVector<BeamLaw> m_beamLaws;
     //增益,参考增益(单位db, 精度0.1db). 最终增益 = m_gain + m_gainref
     float m_gain; 
     float m_gainRef;

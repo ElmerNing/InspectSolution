@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "beamlaw.h"
 
-BeamLaw::BeamLaw(QObject *parent) :
-    SolutionModule(parent)
+BeamLaw::BeamLaw() 
 {
     Default();
 }

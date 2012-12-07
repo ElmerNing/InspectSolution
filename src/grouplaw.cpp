@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "grouplaw.h"
 
-GroupLaw::GroupLaw(QObject *parent) :
-    SolutionModule(parent),
-    m_beamLaws(this)
+GroupLaw::GroupLaw() 
 {
     Default();
 }
@@ -14,8 +12,6 @@ GroupLaw::~GroupLaw()
 
 void GroupLaw::Default()
 {
-    m_beamLaws.Size(1);
-
     m_gain = 0.0f;
     m_gainRef = 0.0f;
 
@@ -54,14 +50,13 @@ void GroupLaw::Default()
 float GroupLaw::BestSumgain() const
 {
     int averElm = 0;
-    for (int i=0; i<m_beamLaws.Size(); i++)
+    for (int i=0; i<m_beamLaws.size(); i++)
     {
-        BeamLaw* beam = m_beamLaws[i];
-        averElm += beam->ActiveElems();
+        averElm += m_beamLaws[i].ActiveElems();
     }
     
-    if (m_beamLaws.Size() != 0)
-        averElm = averElm / m_beamLaws.Size();
+    if (m_beamLaws.size() != 0)
+        averElm = averElm / m_beamLaws.size();
     else
         averElm = 1;
 

@@ -3,7 +3,6 @@
 
 #include "solutionmodule.h"
 #include "qrange.h"
-#include "qobjvector.h"
 
 //3个探头通道
 enum ProbeChannel
@@ -31,11 +30,11 @@ enum DepthType
 };
 SERIALIZE_ENABLE_ENUM(DepthType);
 
-class BeamLaw : public SolutionModule
+class BeamLaw
 {
 public:
 
-    explicit BeamLaw(QObject *parent = 0);
+    explicit BeamLaw();
     virtual ~BeamLaw();
 
     //设置为默认值
@@ -90,7 +89,5 @@ private:
     
     SERIALIZE_ENABLE_CLASS(BeamLaw);
 };
-
-typedef QObjectVector<BeamLaw> BeamLawVector;
 
 #endif // BEAMLAW_H

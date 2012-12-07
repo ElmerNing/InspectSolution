@@ -28,8 +28,7 @@ typedef struct
 } __RW_PROBE;
 #pragma pack(pop) //±£´æ¶ÔÆë×´Ì¬
 
-Probe::Probe(QObject *parent) :
-    SolutionModule(parent)
+Probe::Probe()
 {
 }
 
@@ -83,7 +82,7 @@ bool Probe::LoadFromOlympus( const QString& path, ProbeType type )
 
     return true;
 }
-
+#include <qglobal.h>
 bool Probe::SaveToOlympus( const QString& path )
 {
     __RW_PROBE probe_rw;
@@ -94,7 +93,7 @@ bool Probe::SaveToOlympus( const QString& path )
     if (temp.count() > 19)
         return false;
     strcpy(probe_rw.cModel, temp.data());
-
+    
     temp = m_serial.toAscii();
     if (temp.count() > 19)
         return false;
