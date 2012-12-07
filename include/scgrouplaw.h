@@ -11,7 +11,8 @@ public:
     ~SCgroupLaw();
 
 private:
-
+    float m_depth;
+    float m_angle;
     SERIALIZE_ENABLE_CLASS(SCgroupLaw);
 };
 

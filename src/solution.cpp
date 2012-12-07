@@ -5,6 +5,14 @@ Solution::Solution(QObject* parent)
     :QObject(parent)
     ,m_config(this)
 {
+}
+
+Solution::~Solution()
+{
+}
+
+void Solution::Default()
+{
     m_probe[ProbeChannel::pa] = new Probe(this);
     m_probe[ProbeChannel::ut1] = new Probe(this);
     m_probe[ProbeChannel::ut2] = new Probe(this);
@@ -12,10 +20,6 @@ Solution::Solution(QObject* parent)
     m_wedge[ProbeChannel::pa] = new Wedge(this);
     m_wedge[ProbeChannel::ut1] = new Wedge(this);
     m_wedge[ProbeChannel::ut2] = new Wedge(this);
-}
-
-Solution::~Solution()
-{
 }
 
 SERIALIZE_BEGIN(Solution)

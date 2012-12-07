@@ -13,6 +13,7 @@ class Solution : public QObject
 public:
     explicit Solution(QObject* parent = NULL);
     virtual ~Solution();
+    void Default();
     int Prf();
     void Prf(int prf);
     void PrfRange();
