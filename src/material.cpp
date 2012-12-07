@@ -2,6 +2,16 @@
 #include "Material.h"
 
 
+SERIALIZE_BEGIN(WeldArea)
+    SERIALIZE_VAR(m_thickness)
+    SERIALIZE_VAR(m_fillNum)
+SERIALIZE_END
+
+DE_SERIALIZE_BEGIN(WeldArea)
+    DE_SERIALIZE_VAR(m_thickness)
+    DE_SERIALIZE_VAR(m_fillNum)
+DE_SERIALIZE_END
+
 Weld::Weld(void)
 {
 }

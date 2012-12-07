@@ -86,6 +86,8 @@ public:
     void SecOffset(float val) { m_secOffset = val; }
 
 private:
+    //偏移
+    float 
     //楔块类型
     WedgeType m_wedgeType;
     //共用
