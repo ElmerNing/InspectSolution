@@ -1,8 +1,6 @@
 #ifndef GCONFIG_H
 #define GCONFIG_H
 
-#include "solutionmodule.h"
-
 //PaµÁ—π
 enum PaVoltage
 {

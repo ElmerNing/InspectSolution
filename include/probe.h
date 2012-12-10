@@ -1,8 +1,6 @@
 #ifndef PROBE_H
 #define PROBE_H
 
-#include "solutionmodule.h"
-
 enum PaProbeType
 {
     PPT_CUSTOM = 1,
@@ -22,11 +20,11 @@ SERIALIZE_ENABLE_ENUM(ProbeType);
 class Probe
 {
 public:
-    explicit Probe();
+    explicit Probe(ProbeType type = ProbeType::PT_PA);
     virtual ~Probe();
 
     //设置为默认值
-    virtual void Default();
+    void Default(ProbeType type = ProbeType::PT_PA);
     
     //加载和保持和Olympus兼容的楔块文件格式
     bool LoadFromOlympus(const QString& path, ProbeType type);
@@ -79,7 +77,7 @@ private:
     //PA
     float m_pa_pitch;
     int m_pa_elmQty;
-    PaProbeType m_pa_probeType; 
+    PaProbeType m_pa_probeType;
     float m_pa_refPoint;
 
     SERIALIZE_ENABLE_CLASS(Probe);

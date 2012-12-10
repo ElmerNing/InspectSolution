@@ -28,8 +28,9 @@ typedef struct
 } __RW_PROBE;
 #pragma pack(pop) //±£´æ¶ÔÆë×´Ì¬
 
-Probe::Probe()
+Probe::Probe(ProbeType type)
 {
+    Default(type);
 }
 
 Probe::~Probe()
@@ -37,11 +38,27 @@ Probe::~Probe()
 }
 
 
-void Probe::Default()
+void Probe::Default(ProbeType type)
 {
-    this->m_probeType = ProbeType::PT_UT;
-    this->m_freq = 1.0f;
-    this->m_ut_elmSize = 25.4f;
+    if (type == ProbeType::PT_UT)
+    {
+        this->m_probeType = ProbeType::PT_UT;
+        m_model = "";
+        m_serial = "";
+        this->m_freq = 1.0f;
+        this->m_ut_elmSize = 25.4f;
+    }
+    else
+    {
+        this->m_probeType = ProbeType::PT_PA;
+        m_model = "";
+        m_serial = "";
+        this->m_freq = 1.0f;
+        this->m_pa_pitch = 0.5f;
+        this->m_pa_elmQty = 0.5;
+        this->m_pa_probeType = PaProbeType::PPT_CUSTOM;
+        this->m_pa_refPoint = 0;
+    }
 }
 
 bool Probe::LoadFromOlympus( const QString& path, ProbeType type )
@@ -82,7 +99,7 @@ bool Probe::LoadFromOlympus( const QString& path, ProbeType type )
 
     return true;
 }
-#include <qglobal.h>
+
 bool Probe::SaveToOlympus( const QString& path )
 {
     __RW_PROBE probe_rw;

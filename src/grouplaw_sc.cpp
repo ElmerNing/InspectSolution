@@ -1,20 +1,20 @@
 #include "stdafx.h"
 #include "grouplaw_sc.h"
 
-SCgroupLaw::SCgroupLaw()
+GroupLaw_sc::GroupLaw_sc()
 {
 
 }
 
-SCgroupLaw::~SCgroupLaw()
+GroupLaw_sc::~GroupLaw_sc()
 {
 
 }
 
-SERIALIZE_BEGIN(SCgroupLaw)
-    SERIALIZE_BASE(GroupLaw)
+SERIALIZE_BEGIN(GroupLaw_sc)
+    SERIALIZE_BASE(GroupLaw_sc)
 SERIALIZE_END
 
-DE_SERIALIZE_BEGIN(SCgroupLaw)
-    DE_SERIALIZE_BASE(GroupLaw)
+DE_SERIALIZE_BEGIN(GroupLaw_sc)
+    DE_SERIALIZE_BASE(GroupLaw_sc)
 DE_SERIALIZE_END

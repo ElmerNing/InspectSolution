@@ -1,8 +1,6 @@
 #ifndef WEDGE_H
 #define WEDGE_H
 
-#include "solutionmodule.h"
-
 enum WedgeWaveType
 {
     WWT_L = 1,
@@ -27,11 +25,11 @@ SERIALIZE_ENABLE_ENUM(WedgeType);
 class Wedge
 {
 public:
-    explicit Wedge();
+    explicit Wedge(WedgeType type = WedgeType::WT_PA);
     virtual ~Wedge();
 
     //设置为默认值
-    void Default();
+    void Default(WedgeType type = WedgeType::WT_PA);
 
     //加载和保持和Olympus兼容的楔块文件格式
     bool LoadFromOlympus(const QString& path, WedgeType type);
@@ -39,7 +37,7 @@ public:
 
     //楔块类型 PA or UT
     WedgeType Type() const { return m_wedgeType; }
-    void Type(WedgeType val) { m_wedgeType = val; }
+    //void Type(WedgeType val) { m_wedgeType = val; }
 
     //楔块名字
     QString Model() const { return m_model; }
@@ -87,7 +85,7 @@ public:
 
 private:
     //偏移
-    float 
+    float m_offset;
     //楔块类型
     WedgeType m_wedgeType;
     //共用
@@ -99,7 +97,6 @@ private:
     //UT
     float m_ut_wedgeDelay;
     WedgeWaveType m_ut_waveType;
-    
     //PA
     WedgeOrient m_pa_orient;
     float m_height;

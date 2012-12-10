@@ -1,7 +1,6 @@
 #ifndef GROUPLAW_H
 #define GROUPLAW_H
 
-#include "solutionmodule.h"
 #include "beamlaw.h"
 
 enum RectifierMode

@@ -1,7 +1,6 @@
 #ifndef BEAMLAW_H
 #define BEAMLAW_H
 
-#include "solutionmodule.h"
 #include "qrange.h"
 
 //3个探头通道

@@ -29,9 +29,9 @@ typedef struct
 } __WR_WEDGE;
 #pragma pack(pop) //保存对齐状态
 
-Wedge::Wedge()
+Wedge::Wedge(WedgeType type)
 {
-    Default();
+    Default(type);
 }
 
 Wedge::~Wedge()
@@ -39,14 +39,35 @@ Wedge::~Wedge()
 
 }
 
-void Wedge::Default()
+void Wedge::Default(WedgeType type)
 {
-    m_wedgeType = WedgeType::WT_UT;
-    m_angle = 0;
-    m_ut_wedgeDelay = 0;
-    m_ut_waveType = WedgeWaveType::WWT_S;
-    m_refPoint = 0;
-    m_velocity = 5200;
+    if (type == WedgeType::WT_UT)
+    {
+        m_offset = 0;
+        m_wedgeType = WedgeType::WT_UT;
+        m_model = "";
+        m_serial = "";
+        m_angle = 0;
+        m_ut_wedgeDelay = 0;
+        m_ut_waveType = WedgeWaveType::WWT_S;
+        m_refPoint = 0;
+        m_velocity = 5200;
+    }
+    else if (type == WedgeType::WT_PA)
+    {
+        m_offset = 0;
+        m_wedgeType = WedgeType::WT_PA;
+        m_model = "";
+        m_serial = "";
+        m_angle = 0;
+        m_refPoint = 0;
+        m_velocity = 5200;
+
+        m_pa_orient = WedgeOrient::WO_NORMAL;
+        m_height = 0;
+        m_priOffset = 100;
+        m_secOffset = 0;
+    }
 }
 
 
@@ -157,6 +178,7 @@ bool Wedge::SaveToOlympus( const QString& path )
 
 //序列化
 SERIALIZE_BEGIN(Wedge)
+    SERIALIZE_VAR(m_offset)
     SERIALIZE_VAR(m_wedgeType)
     SERIALIZE_VAR(m_model)
     SERIALIZE_VAR(m_serial)
@@ -173,6 +195,7 @@ SERIALIZE_END
 
 //反序列化
 DE_SERIALIZE_BEGIN(Wedge)
+    DE_SERIALIZE_VAR(m_offset)
     DE_SERIALIZE_VAR(m_wedgeType)
     DE_SERIALIZE_VAR(m_model)
     DE_SERIALIZE_VAR(m_serial)

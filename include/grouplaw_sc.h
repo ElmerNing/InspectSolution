@@ -3,13 +3,13 @@
 
 #include "grouplaw.h"
 
-class SCgroupLaw : public GroupLaw
+class GroupLaw_sc : public GroupLaw
 {
 public:
-    SCgroupLaw();
-    ~SCgroupLaw();
+    GroupLaw_sc();
+    ~GroupLaw_sc();
 
 private:
-    SERIALIZE_ENABLE_CLASS(SCgroupLaw);
+    SERIALIZE_ENABLE_CLASS(GroupLaw_sc);
 };
 #endif // SCGROUPLAW_H
