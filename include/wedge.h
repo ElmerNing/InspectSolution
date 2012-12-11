@@ -1,6 +1,8 @@
 #ifndef WEDGE_H
 #define WEDGE_H
 
+class Probe;
+
 enum WedgeWaveType
 {
     WWT_L = 1,
@@ -72,20 +74,21 @@ public:
     void Pa_orient(WedgeOrient val) { m_pa_orient = val; }
 
     //第一振元高度 (mm)
-    float Height() const { return m_height; }
-    void Height(float val) { m_height = val; }
+    float Pa_height() const { return m_pa_height; }
+    void Pa_height(float val) { m_pa_height = val; }
 
     //主轴偏置 (mm)
-    float PriOffset() const { return m_priOffset; }
-    void PriOffset(float val) { m_priOffset = val; }
+    float Pa_priOffset() const { return m_pa_priOffset; }
+    void Pa_priOffset(float val) { m_pa_priOffset = val; }
 
     //次轴偏置 (mm)
-    float SecOffset() const { return m_secOffset; }
-    void SecOffset(float val) { m_secOffset = val; }
+    float Pa_secOffset() const { return m_pa_secOffset; }
+    void Pa_secOffset(float val) { m_pa_secOffset = val; }
+
+    //阵元位置
+    QPointF Pa_elmPos(int index, const Probe& probe, float offset = 0) const;
 
 private:
-    //偏移
-    float m_offset;
     //楔块类型
     WedgeType m_wedgeType;
     //共用
@@ -99,9 +102,9 @@ private:
     WedgeWaveType m_ut_waveType;
     //PA
     WedgeOrient m_pa_orient;
-    float m_height;
-    float m_priOffset;
-    float m_secOffset;
+    float m_pa_height;
+    float m_pa_priOffset;
+    float m_pa_secOffset;
 
     SERIALIZE_ENABLE_CLASS(Wedge);
 };

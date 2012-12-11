@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "probe.h"
+#include "wedge.h"
 
 #pragma pack(push) //保存对齐状态
 #pragma pack(4)
@@ -146,6 +147,23 @@ bool Probe::SaveToOlympus( const QString& path )
 
     out.writeRawData(writepos, sizeof(__RW_PROBE));
     return true;
+}
+
+QPointF Probe::Pa_elmPos( int index, const Wedge& wedge, float offset ) const
+{
+    float X = qAbs(wedge.Pa_priOffset());
+    float Z = qAbs(wedge.Pa_height());
+
+    //反向楔块，倒转阵元索引
+    if (wedge.Pa_orient() == WedgeOrient::WO_REVERSAL)
+        index = Pa_elmQty() - 1 - index;
+
+    QPointF elmPos;
+    float pitchX = Pa_pitch() * qSin(wedge.Angle());
+    float pitchY = Pa_pitch() * qCos(wedge.Angle());
+    elmPos.rx() = offset + X - index * pitchX;
+    elmPos.ry() = (-1) * ( Z + index * pitchY );
+    return elmPos;
 }
 
 //序列化

@@ -19,7 +19,7 @@ enum Gate
     GATE_B,
     GATE_I,
 };
-SERIALIZE_ENABLE_ENUM(Gate);
+SERIALIZE_ENABLE_ENUM(Gate)
 
 //深度模式
 enum DepthType
@@ -27,39 +27,40 @@ enum DepthType
     DT_BEAM_PATH = 0,   //半声程
     DT_TRUE_DEPTH = 1,  //真实深度
 };
-SERIALIZE_ENABLE_ENUM(DepthType);
+SERIALIZE_ENABLE_ENUM(DepthType)
+
+struct ElmDelay
+{
+    //单位(ns)
+    ElmDelay(){TxDelay = 0; RxDelay = 0;}
+    ushort TxDelay;
+    ushort RxDelay;
+    SERIALIZE_ENABLE_CLASS(ElmDelay)
+};
 
 class BeamLaw
 {
 public:
-
     explicit BeamLaw();
     virtual ~BeamLaw();
 
     //设置为默认值
     void Default();
 
-    //激发阵元数, 改变会同时改变group的sumgain,过会实现
+    //激发阵元数
     int ActiveElems() const { return m_activeElems; }
-    void ActiveElems(int val) { m_activeElems = val; }
+    void ActiveElems(int val) { m_activeElems = val; m_delay.resize(m_activeElems); }
     //发射起始阵元
     int TxFirst() const { return m_txFirst; }
     void TxFirst(int val) { m_txFirst = val; }
     //接受起始阵元
     int RxFirst() const { return m_rxFirst; }
     void RxFirst(int val) { m_rxFirst = val; }
-    //聚焦角度
-    float Angle() const { return m_angle; }
-    void Angle(float val) { m_angle = val; }
-    //聚焦转向角
-    float ScrewAngle() const { return m_screwAngle; }
-    void ScrewAngle(float val) { m_screwAngle = val; }
-    //聚焦深度类型
-    DepthType FocusDepthType() const { return m_focusDepthType; }
-    void FocusDepthType(DepthType val) { m_focusDepthType = val; }
-    //聚焦深度,FocusDepthType不同,有不同物理意义
-    float FocusDepth() const { return m_focusDepth; }
-    void FocusDepth(float val) { m_focusDepth = val; }
+    //设置阵元延迟(单位 ns)
+    void TxDelay(int index, ushort delay) {m_delay[index].TxDelay = delay; }
+    void RxDelay(int index, ushort delay) {m_delay[index].RxDelay = delay; }
+    ushort TxDelay(int index) { return m_delay[index].TxDelay; }
+    ushort RxDelay(int index) { return m_delay[index].RxDelay; }
     //闸门测量范围
     QRangeF GateRange(Gate gate) { return m_gateRange[gate]; }
     QRangeF GateRange(Gate gate, QRangeF range) { m_gateRange[gate] = range; }
@@ -71,14 +72,8 @@ private:
     int m_txFirst;
     //接受起始阵元
     int m_rxFirst;
-    //聚焦角度
-    float m_angle;
-    //聚焦转向角
-    float m_screwAngle;
-    //聚焦深度类型
-    DepthType m_focusDepthType;
-    //聚焦深度
-    float m_focusDepth;
+    //阵元收发延迟
+    QVector<ElmDelay> m_delay;
     //闸门范围
     QMap< Gate, QRangeF > m_gateRange;
     //增益补偿(db,分辨率0.1db)

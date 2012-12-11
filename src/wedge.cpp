@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "wedge.h"
+#include "probe.h"
 
 #pragma pack(push) //保存对齐状态
 #pragma pack(4)
@@ -43,7 +44,6 @@ void Wedge::Default(WedgeType type)
 {
     if (type == WedgeType::WT_UT)
     {
-        m_offset = 0;
         m_wedgeType = WedgeType::WT_UT;
         m_model = "";
         m_serial = "";
@@ -55,7 +55,6 @@ void Wedge::Default(WedgeType type)
     }
     else if (type == WedgeType::WT_PA)
     {
-        m_offset = 0;
         m_wedgeType = WedgeType::WT_PA;
         m_model = "";
         m_serial = "";
@@ -64,9 +63,9 @@ void Wedge::Default(WedgeType type)
         m_velocity = 5200;
 
         m_pa_orient = WedgeOrient::WO_NORMAL;
-        m_height = 0;
-        m_priOffset = 100;
-        m_secOffset = 0;
+        m_pa_height = 0;
+        m_pa_priOffset = 100;
+        m_pa_secOffset = 0;
     }
 }
 
@@ -115,9 +114,9 @@ bool Wedge::LoadFromOlympus( const QString& path, WedgeType type )
 
     //PA
     this->m_pa_orient = WedgeOrient(wedge_rw.cOrientation);
-    this->m_height = float(wedge_rw.iHeight / 1000.0f);
-    this->m_priOffset = float(wedge_rw.iPrimaryOffset / 1000.0f);
-    this->m_secOffset = float(wedge_rw.iSecondaryOffset / 1000.0f);
+    this->m_pa_height = float(wedge_rw.iHeight / 1000.0f);
+    this->m_pa_priOffset = float(wedge_rw.iPrimaryOffset / 1000.0f);
+    this->m_pa_secOffset = float(wedge_rw.iSecondaryOffset / 1000.0f);
     
     return true;
 }
@@ -149,9 +148,9 @@ bool Wedge::SaveToOlympus( const QString& path )
 
     //PA
     wedge_rw.cOrientation = char(this->m_pa_orient);
-    wedge_rw.iHeight = qRound(this->m_height * 1000.0f);
-    wedge_rw.iPrimaryOffset = qRound(this->m_priOffset);
-    wedge_rw.iSecondaryOffset = qRound(this->m_secOffset);
+    wedge_rw.iHeight = qRound(this->m_pa_height * 1000.0f);
+    wedge_rw.iPrimaryOffset = qRound(this->m_pa_priOffset);
+    wedge_rw.iSecondaryOffset = qRound(this->m_pa_secOffset);
 
     //截断位置
     int cupoff = (int)(&(((__WR_WEDGE*)NULL)->iRefPoint));
@@ -176,9 +175,25 @@ bool Wedge::SaveToOlympus( const QString& path )
     return true;
 }
 
+QPointF Wedge::Pa_elmPos(int index, const Probe& probe, float offset) const
+{
+    float X = qAbs(m_pa_priOffset);
+    float Z = qAbs(m_pa_height);
+    
+    //反向楔块，倒转阵元索引
+    if (m_pa_orient == WedgeOrient::WO_REVERSAL)
+        index = probe.Pa_elmQty() - 1 - index;
+    
+    QPointF elmPos;
+    float pitchX = probe.Pa_pitch() * qSin(m_angle);
+    float pitchY = probe.Pa_pitch() * qCos(m_angle);
+    elmPos.rx() = offset + X - index * pitchX;
+    elmPos.ry() = (-1) * ( Z + index * pitchY );
+    return elmPos;
+}
+
 //序列化
 SERIALIZE_BEGIN(Wedge)
-    SERIALIZE_VAR(m_offset)
     SERIALIZE_VAR(m_wedgeType)
     SERIALIZE_VAR(m_model)
     SERIALIZE_VAR(m_serial)
@@ -188,14 +203,13 @@ SERIALIZE_BEGIN(Wedge)
     SERIALIZE_VAR(m_ut_wedgeDelay)
     SERIALIZE_VAR(m_ut_waveType)
     SERIALIZE_VAR(m_pa_orient)
-    SERIALIZE_VAR(m_height)
-    SERIALIZE_VAR(m_priOffset)
-    SERIALIZE_VAR(m_secOffset)
+    SERIALIZE_VAR(m_pa_height)
+    SERIALIZE_VAR(m_pa_priOffset)
+    SERIALIZE_VAR(m_pa_secOffset)
 SERIALIZE_END
 
 //反序列化
 DE_SERIALIZE_BEGIN(Wedge)
-    DE_SERIALIZE_VAR(m_offset)
     DE_SERIALIZE_VAR(m_wedgeType)
     DE_SERIALIZE_VAR(m_model)
     DE_SERIALIZE_VAR(m_serial)
@@ -205,7 +219,7 @@ DE_SERIALIZE_BEGIN(Wedge)
     DE_SERIALIZE_VAR(m_ut_wedgeDelay)
     DE_SERIALIZE_VAR(m_ut_waveType)
     DE_SERIALIZE_VAR(m_pa_orient)
-    DE_SERIALIZE_VAR(m_height)
-    DE_SERIALIZE_VAR(m_priOffset)
-    DE_SERIALIZE_VAR(m_secOffset)
+    DE_SERIALIZE_VAR(m_pa_height)
+    DE_SERIALIZE_VAR(m_pa_priOffset)
+    DE_SERIALIZE_VAR(m_pa_secOffset)
 DE_SERIALIZE_END

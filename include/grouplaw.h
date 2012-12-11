@@ -62,7 +62,7 @@ public:
     virtual ~GroupLaw();
 
     //设置为默认值
-    void Default();
+    virtual void Default();
 
     //增益,参考增益(单位db, 精度0.1db). 最终增益 = m_gain + m_gainref
     float Gain() const { return m_gain; }
@@ -96,7 +96,7 @@ public:
     //疑问,每个beam所用阵元数 都可能不一样
     float Sumgain() const { return m_sumgain; }
     void Sumgain(float val) { m_sumgain = val; }
-    float BestSumgain() const;
+    virtual float BestSumgain() const = 0;
 
     //厚度差,(貌似无用)
     float ThickFactor() const { return m_thickFactor; }
@@ -111,11 +111,10 @@ public:
     void GateLogic(Gate gate, LogicMode logic) { m_gateLogic[gate] = logic; }
 
     //使用探头
-    ProbeChannel Probe() const { return m_probe; }
-    void Probe(ProbeChannel val) { m_probe = val; }
+    ProbeChannel ChannelOfProbe() const { return m_probe; }
+    void ChannelOfProbe(ProbeChannel val) { m_probe = val; }
 
 private:
-    QVector<BeamLaw> m_beamLaws;
     //增益,参考增益(单位db, 精度0.1db). 最终增益 = m_gain + m_gainref
     float m_gain; 
     float m_gainRef;

@@ -1,6 +1,8 @@
 #ifndef PROBE_H
 #define PROBE_H
 
+class Wedge;
+
 enum PaProbeType
 {
     PPT_CUSTOM = 1,
@@ -32,7 +34,7 @@ public:
 
     //探头类型
     ProbeType Type() const { return m_probeType; }
-    void Type(ProbeType val) { m_probeType = val; }\
+    //void Type(ProbeType val) { m_probeType = val; }
 
     //探头型号
     QString Model() const { return m_model; }
@@ -65,6 +67,9 @@ public:
     //Pa探头参考点(mm)
     float Pa_refPoint() const { return m_pa_refPoint; }
     void Pa_refPoint(float val) { m_pa_refPoint = val; }
+
+    //pa探头阵元位置
+    QPointF Pa_elmPos(int index, const Wedge& wedge, float offset = 0) const;
 
 private:
     ProbeType m_probeType;

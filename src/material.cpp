@@ -1,6 +1,15 @@
 #include "stdafx.h"
 #include "Material.h"
 
+SERIALIZE_BEGIN(WeldFill)
+    SERIALIZE_VAR(type)
+    SERIALIZE_VAR(index)
+SERIALIZE_END
+
+DE_SERIALIZE_BEGIN(WeldFill)
+    DE_SERIALIZE_VAR(type)
+    DE_SERIALIZE_VAR(index)
+DE_SERIALIZE_END
 
 WeldArea::WeldArea()
 {

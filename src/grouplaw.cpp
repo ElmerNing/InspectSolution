@@ -47,23 +47,6 @@ void GroupLaw::Default()
 
 }
 
-float GroupLaw::BestSumgain() const
-{
-    int averElm = 0;
-    for (int i=0; i<m_beamLaws.size(); i++)
-    {
-        averElm += m_beamLaws[i].ActiveElems();
-    }
-    
-    if (m_beamLaws.size() != 0)
-        averElm = averElm / m_beamLaws.size();
-    else
-        averElm = 1;
-
-    int sumgain = averElm<2 ? 4095 : (6400/averElm);
-    return 20 * log10(sumgain / 16.0f);
-}
-
 //ÐòÁÐ»¯
 SERIALIZE_BEGIN(GroupLaw)
     SERIALIZE_VAR(m_gain)
@@ -81,7 +64,6 @@ SERIALIZE_BEGIN(GroupLaw)
     SERIALIZE_VAR(m_ttl)
     SERIALIZE_VAR(m_hicknessMax)
     SERIALIZE_VAR(m_pulseWidth)
-    SERIALIZE_VAR(m_beamLaws)
     SERIALIZE_VAR(m_probe)
 SERIALIZE_END
 
@@ -102,6 +84,5 @@ DE_SERIALIZE_BEGIN(GroupLaw)
     DE_SERIALIZE_VAR(m_ttl)
     DE_SERIALIZE_VAR(m_hicknessMax)
     DE_SERIALIZE_VAR(m_pulseWidth)
-    DE_SERIALIZE_VAR(m_beamLaws)
     DE_SERIALIZE_VAR(m_probe)
 DE_SERIALIZE_END

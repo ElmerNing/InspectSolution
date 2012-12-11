@@ -40,4 +40,8 @@ int main(int argc, char *argv[])
         stream>>ss;
         file.close();
     }*/
+
+    QVector<QString> array(0);
+    array.resize(array.size() + 1);
+
 }
