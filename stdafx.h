@@ -4,6 +4,7 @@
 #include <qglobal.h>
 #include <QtCore>
 #include <QVector>
+#include <QLinkedList>
 #include <QMap>
 #include <QObject>
 #include <QFile>

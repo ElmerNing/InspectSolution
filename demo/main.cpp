@@ -2,46 +2,41 @@
 #include "stdafx.h"
 #include <QCoreApplication>
 #include "solution_sc.h"
-
+#include "inspectdata.h"
+#include "datadevice.h"
 
 int main(int argc, char *argv[])
-{/*
-    SCsolution solution;
-    solution.m_velocity = 111.11f;
-    solution.m_config.DampUt1(UD_500R);
-    solution.m_config.DampUt2(UD_500R);
-    solution.m_config.EncoderPolarX(EP_REVERSE);
-    solution.m_config.EncoderStatusX(ES_PAUSE);
-    for (int i=0; i<20; i++)
+{
+    int grpQty = 10;
+    BlockInfo info(grpQty);
+    for (int i=0; i<grpQty; i++)
     {
-        GroupLaw* group = solution.GroupLaws().Append();
-        QObjectVector<BeamLaw> beamlaws = group->BeamLaws();
-        beamlaws.Clear();
-        for (int i=0; i<50; i++)
-        {
-            BeamLaw* beam = beamlaws.Append();
-            beam->Angle(90);
-            beam->FocusDepth(333);
-        }
+        info.SetGrp(i, 2, 480);
     }
+    int blockSize = info.GetBlockSize();
+    InspectData data;
+    data.Init(info);
 
+    uchar* p = new uchar[blockSize];
+    for (int i=0; i<blockSize; i++)
     {
-        QFile file("aaa.ccc");
-        QDataStream stream(&file);
-        file.open(QFile::ReadWrite);
-        stream<<solution;
-        file.close();
+        p[i] = (i%512)/2;
     }
-    {
-        QFile file("aaa.ccc");
-        QDataStream stream(&file);
-        file.open(QFile::ReadWrite);
-        SCsolution ss;
-        stream>>ss;
-        file.close();
-    }*/
+    data.OnReceiveBlock(p,0);
 
-    QVector<QString> array(0);
-    array.resize(array.size() + 1);
+    QFile file("a.dat");
+    file.open(QFile::ReadWrite);
+    QDataStream out(&file);
+    out<<data;
+    int end = 333;
+    out<<end;
+    file.close();
+
+    file.open(QFile::ReadWrite);
+    QDataStream in(&file);
+    InspectData data2;
+    in>>data2;
+    int start = 0;
+    in>>start;
 
 }
