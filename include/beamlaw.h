@@ -49,7 +49,7 @@ public:
 
     //激发阵元数
     int ActiveElems() const { return m_activeElems; }
-    void ActiveElems(int val) { m_activeElems = val; m_delay.resize(m_activeElems); }
+    void ActiveElems(int val) { m_activeElems = val; m_delay.clear(); m_delay.resize(m_activeElems); }
     //发射起始阵元
     int TxFirst() const { return m_txFirst; }
     void TxFirst(int val) { m_txFirst = val; }

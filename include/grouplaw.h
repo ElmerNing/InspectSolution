@@ -70,11 +70,11 @@ public:
     float GainRef() const { return m_gainRef; }
     void GainRef(float val) { m_gainRef = val; }
 
-    //扫查范围(单位mm), 
-    float Range() const { return m_range; }
-    void Range(float val) { m_range = val; }
-    float Start() const { return m_start; }
-    void Start(float val) { m_start = val; }
+    // 
+    int Range() const { return m_range; }
+    void Range(int val) { m_range = val; }
+    int Start() const { return m_start; }
+    void Start(int val) { m_start = val; }
 
     //检波模式, 射频时, 自动关闭视频滤波
     RectifierMode Rectifier() const { return m_rectifier; }
@@ -120,8 +120,8 @@ private:
     float m_gainRef;
     
     //扫查起始与范围,不包括楔块延迟(单位mm), 
-    float m_start;
-    float m_range;
+    int m_start;
+    int m_range;
 
     //检波模式
     RectifierMode m_rectifier;

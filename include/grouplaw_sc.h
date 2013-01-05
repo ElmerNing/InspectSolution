@@ -18,7 +18,8 @@ public:
     virtual void Default();
 
     //当前group对应的区域
-    WeldFill Fill() const { return m_fill; }
+    const WeldFill& Fill() const { return m_fill; }
+    WeldFill& Fill() { return m_fill; }
     void Fill(WeldFill val) { m_fill = val; }
 
     //设置孔径
@@ -39,14 +40,16 @@ public:
     //GenerateLaw是否计算完成 
     bool LawReady() const { return m_lawReady; }
 
+    //以下Law前缀的函数, 需要GenerateLaw后才能正确调用
+
     //Tx的中心阵元坐标
-    QPointF MidElmPos() const { return m_midElmPos; }
+    QPointF Law_MidElmPos() const { Q_ASSERT(m_lawReady); return m_midElmPos; }
     
     //Tx的入射点坐标
-    float ProbIndex() const { return m_probIndex; }
+    float Law_ProbIndex() const { Q_ASSERT(m_lawReady); return m_probIndex; }
     
     //Tx的实际发射角度
-    float ActualAngle() const { return m_actualAngle; }
+    float Law_ActualAngle() const { Q_ASSERT(m_lawReady); return m_actualAngle; }
 
 public:
     virtual float BestSumgain() const;

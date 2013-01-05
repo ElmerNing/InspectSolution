@@ -18,7 +18,6 @@ INCLUDEPATH += ./\
 PRECOMPILED_HEADER += stdafx.h
 
 SOURCES += \
-    src/solution.cpp \
     src/grouplaw.cpp \
     src/beamlaw.cpp \
     src/focalaw.cpp \
@@ -29,10 +28,14 @@ SOURCES += \
     src/serialize.cpp \
     src/scsolution.cpp \
     src/scgrouplaw.cpp \
-    src/enummap.cpp
+    src/enummap.cpp \
+    src/solution_sc.cpp \
+    src/solutiondata_sc.cpp \
+    src/material.cpp \
+    src/grouplaw_sc.cpp \
+    src/beamlaw_sc.cpp
 
 HEADERS += \
-    include/solution.h \
     stdafx.h \
     include/grouplaw.h \
     include/wedge.h \
@@ -46,4 +49,8 @@ HEADERS += \
     include/scgrouplaw.h \
     include/qrange.h \
     include/qobjvector.h \
-    include/globaltype.h
+    include/solution_sc.h \
+    include/solutiondata_sc.h \
+    include/material.h \
+    include/grouplaw_sc.h \
+    include/beamlaw_sc.h

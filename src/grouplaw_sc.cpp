@@ -130,13 +130,13 @@ void GroupLaw_sc::GenerateLaw(float offset, const Probe& probe, const Wedge& wed
     m_beamLaw.ActiveElems(m_aperture);
     m_beamLaw.RxFirst(startElm);
     m_beamLaw.TxFirst(startElm);
-    for (int i=0; i<m_aperture; i++)
+    for (int i=startElm; i<startElm+m_aperture; i++)
     {
         ushort delay = ushort(qAbs(flyTime[i] - maxFlyTime)*1000000);
         if (delay > 25560)
             delay = 25560;
-        m_beamLaw.TxDelay(i, delay);
-        m_beamLaw.RxDelay(i, delay);
+        m_beamLaw.TxDelay(i-startElm, delay);
+        m_beamLaw.RxDelay(i-startElm, delay);
     }
 
     //法则计算完毕

@@ -20,6 +20,10 @@ Solution_sc::Solution_sc()
     m_offset[ProbeChannel::pa] = 0;
     m_offset[ProbeChannel::ut1] = 0;
     m_offset[ProbeChannel::ut2] = 0;
+
+    m_weldArea[WeldAreaType::WA_CAP] = WeldArea();
+    m_weldArea[WeldAreaType::WA_FILL] = WeldArea();
+    m_weldArea[WeldAreaType::WA_ROOT] = WeldArea();
 }
 
 Solution_sc::~Solution_sc()
@@ -146,6 +150,23 @@ QRangeF Solution_sc::PaProbeOffset_helper( const WeldArea& area )
     float maxOffset = probeIndexStart - probeIndexMin;
     float minOffset = probeIndexEnd - probeIndexMax;
     return QRangeF(minOffset, maxOffset);
+}
+
+GroupLaw_sc* Solution_sc::GetGroupLaw(const WeldFill& fill )
+{
+    for (int i=0; i<m_groupLaws.size(); i++)
+    {
+        if (m_groupLaws[i].Fill() == fill)
+        {
+            return &m_groupLaws[i];
+        }
+    }
+    return NULL;
+}
+
+GroupLaw_sc* Solution_sc::GetGroupLaw( int index )
+{
+    return &m_groupLaws[index];
 }
 
 SERIALIZE_BEGIN(Solution_sc)
