@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "beamlaw.h"
 
 SERIALIZE_BEGIN(ElmDelay)
@@ -26,7 +26,7 @@ void BeamLaw::Default()
     m_gateRange[Gate::GATE_I] = QRangeF(0, 30);
 }
 
-//–Ú¡–ªØ
+//Â∫èÂàóÂåñ
 SERIALIZE_BEGIN(BeamLaw)
     SERIALIZE_VAR(m_activeElems)
     SERIALIZE_VAR(m_txFirst)
@@ -37,7 +37,7 @@ SERIALIZE_BEGIN(BeamLaw)
     SERIALIZE_VAR(m_beamDelay)
 SERIALIZE_END
 
-//∑¥–Ú¡–ªØ
+//ÂèçÂ∫èÂàóÂåñ
 DE_SERIALIZE_BEGIN(BeamLaw)
     DE_SERIALIZE_VAR(m_activeElems)
     DE_SERIALIZE_VAR(m_txFirst)

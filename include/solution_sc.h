@@ -1,4 +1,4 @@
-#ifndef SCSOLUTION_H
+ï»¿#ifndef SCSOLUTION_H
 #define SCSOLUTION_H
 #include "gconfig.h"
 #include "grouplaw_sc.h"
@@ -15,14 +15,14 @@ public:
 
 };
 
-//StripChartµÄsolution
+//StripChartçš„solution
 class Solution_sc
 {
 public:
     Solution_sc();
     ~Solution_sc();
 
-    //¸ù¾İm_weld,Éú³É½â¾ö·½°¸
+    //æ ¹æ®m_weld,ç”Ÿæˆè§£å†³æ–¹æ¡ˆ
     bool AutoGenerate();
     GroupLaw_sc* GetGroupLaw(const WeldFill& fill );
     GroupLaw_sc* GetGroupLaw(int index);

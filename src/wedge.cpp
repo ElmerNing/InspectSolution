@@ -1,34 +1,34 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "wedge.h"
 #include "probe.h"
 
-#pragma pack(push) //±£´æ¶ÔÆë×´Ì¬
+#pragma pack(push) //ä¿å­˜å¯¹é½çŠ¶æ€
 #pragma pack(4)
 typedef struct 
 {
     unsigned char	A1[2];			//0x03000300 PA 0x01000100 UT
-    char	cWaveType;		// 1 ÊÇL 2 ÊÇ S
+    char	cWaveType;		// 1 æ˜¯L 2 æ˜¯ S
     char	A11;
-    char	szModel[20];		// ¹²ÓÃ Ğ¨¿éÃû×Ö
-    char	szSerial[20];		// ¹²ÓÃ Ğ¨¿éÃû×Ö
-    unsigned short wAngle;			// ¹²ÓÃ ½Ç¶Èµ¥Î»0.1¶È
+    char	szModel[20];		// å…±ç”¨ æ¥”å—åå­—
+    char	szSerial[20];		// å…±ç”¨ æ¥”å—åå­—
+    unsigned short wAngle;			// å…±ç”¨ è§’åº¦å•ä½0.1åº¦
     unsigned short	A7;
-    unsigned short wProbeDelay; 	// UT nsÎªµ¥Î»
+    unsigned short wProbeDelay; 	// UT nsä¸ºå•ä½
     char	A2;
     char	A10;			  // UT 1 SW 0 LW//
-    int	iRefPoint;		// UT Ê¹ÓÃ
-    //Õâ¸öµØ·½ µÃ ¶à¶ÁÒ»¸ö×Ö½Ú
-    unsigned int	iHeight;			// µ¥Î»Î¢Ã×
+    int	iRefPoint;		// UT ä½¿ç”¨
+    //è¿™ä¸ªåœ°æ–¹ å¾— å¤šè¯»ä¸€ä¸ªå­—èŠ‚
+    unsigned int	iHeight;			// å•ä½å¾®ç±³
     unsigned int	iVelocityUt;
     unsigned int	A8;
-    unsigned int	iVelocityPa;	// ËÙ¶È mm/s
+    unsigned int	iVelocityPa;	// é€Ÿåº¦ mm/s
     char	cOrientation;	// 1 Normal 0 reversal
     char	A4[3];
-    int	iPrimaryOffset;	// Î¢Ã×
-    int	iSecondaryOffset;	// Î¢Ã×
+    int	iPrimaryOffset;	// å¾®ç±³
+    int	iSecondaryOffset;	// å¾®ç±³
     int	A6[107];
 } __WR_WEDGE;
-#pragma pack(pop) //±£´æ¶ÔÆë×´Ì¬
+#pragma pack(pop) //ä¿å­˜å¯¹é½çŠ¶æ€
 
 Wedge::Wedge(WedgeType type)
 {
@@ -75,29 +75,29 @@ bool Wedge::LoadFromOlympus( const QString& path, WedgeType type )
     __WR_WEDGE wedge_rw;
     char* readpos = (char*)&wedge_rw;
 
-    //½Ø¶ÏÎ»ÖÃ
+    //æˆªæ–­ä½ç½®
     int cupoff = (int)(&(((__WR_WEDGE*)NULL)->iRefPoint));
 
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     QFile file(path);
     QDataStream in(&file);
     if (!file.open(QFile::ReadOnly) )
         return false;
 
-    //½Ø¶ÏÇ°
+    //æˆªæ–­å‰
     if (in.readRawData(readpos, cupoff) != cupoff)
         return false;
     
-    //½Ø¶ÏÎ»ÖÃ,Ìø¹ıÒ»¸ö×Ö½Ú
+    //æˆªæ–­ä½ç½®,è·³è¿‡ä¸€ä¸ªå­—èŠ‚
     file.seek(cupoff + 1);
 
-    //½Ø¶Ïºó
+    //æˆªæ–­å
     readpos += cupoff;
     int size = sizeof(__WR_WEDGE) - cupoff;
     if (in.readRawData(readpos, size) != size)
         return false;
 
-    //¸ñÊ½×ª»» 
+    //æ ¼å¼è½¬æ¢ 
     this->m_wedgeType = type;
     this->m_model = QString(wedge_rw.szModel);
     this->m_serial = QString(wedge_rw.szSerial);
@@ -126,7 +126,7 @@ bool Wedge::SaveToOlympus( const QString& path )
     __WR_WEDGE wedge_rw;
     memset(&wedge_rw, 0, sizeof(__WR_WEDGE));
     
-    //¸ñÊ½×ª»» 
+    //æ ¼å¼è½¬æ¢ 
     QByteArray temp = m_model.toAscii();
     if (temp.count() > 19)
         return false;
@@ -152,24 +152,24 @@ bool Wedge::SaveToOlympus( const QString& path )
     wedge_rw.iPrimaryOffset = qRound(this->m_pa_priOffset);
     wedge_rw.iSecondaryOffset = qRound(this->m_pa_secOffset);
 
-    //½Ø¶ÏÎ»ÖÃ
+    //æˆªæ–­ä½ç½®
     int cupoff = (int)(&(((__WR_WEDGE*)NULL)->iRefPoint));
 
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     QFile file(path);
     QDataStream out(&file);
     if (!file.open(QFile::WriteOnly) )
         return false;
 
-    //½Ø¶ÏÎ»ÖÃÇ°
+    //æˆªæ–­ä½ç½®å‰
     char* writepos = (char*)&wedge_rw;
     out.writeRawData(writepos, cupoff);
     writepos += cupoff;
     
-    //½Ø¶ÏÎ»ÖÃ¶àĞ´Ò»¸ö×Ö½Ú
+    //æˆªæ–­ä½ç½®å¤šå†™ä¸€ä¸ªå­—èŠ‚
     out.writeRawData(writepos, 1);
 
-    //½Ø¶Ïºó
+    //æˆªæ–­å
     out.writeRawData(writepos, sizeof(__WR_WEDGE) - cupoff);
 
     return true;
@@ -180,7 +180,7 @@ QPointF Wedge::Pa_elmPos(int index, const Probe& probe, float offset) const
     float X = qAbs(m_pa_priOffset);
     float Z = qAbs(m_pa_height);
     
-    //·´ÏòĞ¨¿é£¬µ¹×ªÕóÔªË÷Òı
+    //åå‘æ¥”å—ï¼Œå€’è½¬é˜µå…ƒç´¢å¼•
     if (m_pa_orient == WedgeOrient::WO_REVERSAL)
         index = probe.Pa_elmQty() - 1 - index;
     
@@ -192,7 +192,7 @@ QPointF Wedge::Pa_elmPos(int index, const Probe& probe, float offset) const
     return elmPos;
 }
 
-//ĞòÁĞ»¯
+//åºåˆ—åŒ–
 SERIALIZE_BEGIN(Wedge)
     SERIALIZE_VAR(m_wedgeType)
     SERIALIZE_VAR(m_model)
@@ -208,7 +208,7 @@ SERIALIZE_BEGIN(Wedge)
     SERIALIZE_VAR(m_pa_secOffset)
 SERIALIZE_END
 
-//·´ĞòÁĞ»¯
+//ååºåˆ—åŒ–
 DE_SERIALIZE_BEGIN(Wedge)
     DE_SERIALIZE_VAR(m_wedgeType)
     DE_SERIALIZE_VAR(m_model)

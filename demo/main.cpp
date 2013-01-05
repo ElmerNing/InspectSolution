@@ -1,4 +1,4 @@
-
+﻿
 #include "stdafx.h"
 #include <QCoreApplication>
 #include "solution_sc.h"

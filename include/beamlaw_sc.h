@@ -1,4 +1,4 @@
-#ifndef BEAMLAW_SC_H__
+﻿#ifndef BEAMLAW_SC_H__
 #define BEAMLAW_SC_H__
 
 #include "beamlaw.h"

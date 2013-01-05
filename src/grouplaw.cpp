@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "grouplaw.h"
 
 GroupLaw::GroupLaw() 
@@ -47,7 +47,7 @@ void GroupLaw::Default()
 
 }
 
-//–Ú¡–ªØ
+//Â∫èÂàóÂåñ
 SERIALIZE_BEGIN(GroupLaw)
     SERIALIZE_VAR(m_gain)
     SERIALIZE_VAR(m_gainRef)
@@ -67,7 +67,7 @@ SERIALIZE_BEGIN(GroupLaw)
     SERIALIZE_VAR(m_probe)
 SERIALIZE_END
 
-//∑¥–Ú¡–ªØ
+//ÂèçÂ∫èÂàóÂåñ
 DE_SERIALIZE_BEGIN(GroupLaw)
     DE_SERIALIZE_VAR(m_gain)
     DE_SERIALIZE_VAR(m_gainRef)

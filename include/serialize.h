@@ -1,17 +1,17 @@
-#ifndef SERIALIZE_H
+ï»¿#ifndef SERIALIZE_H
 #define SERIALIZE_H
 
 #include <QDataStream>
 #include <QStack>
 #include <QHash>
 
-//×¢²á¿ÉĞòÁĞ»¯µÄÀà,´ËÀà ±ØĞë¼Ì³ĞÓÚQObject
+//æ³¨å†Œå¯åºåˆ—åŒ–çš„ç±»,æ­¤ç±» å¿…é¡»ç»§æ‰¿äºQObject
 #define SERIALIZE_ENABLE_CLASS(classname) \
     friend QDataStream& operator<<(QDataStream&, const classname &); \
     friend QDataStream& operator>>(QDataStream&, classname &); 
 
 
-//×¢²á¿ÉĞòÁĞ»¯µÄ enum
+//æ³¨å†Œå¯åºåˆ—åŒ–çš„ enum
 #define SERIALIZE_ENABLE_ENUM(enumname) \
 inline QDataStream& operator>>(QDataStream& stream, enumname & data) \
 { \
@@ -24,7 +24,7 @@ inline QDataStream& operator<<(QDataStream& stream, const enumname & data) \
     return stream;\
 }
 
-//ĞòÁĞ»¯
+//åºåˆ—åŒ–
 //Q_ASSERT(dynamic_cast<classname*>(data));
 //stream << (*data);
 //return stream;
@@ -33,11 +33,11 @@ QDataStream& operator<<(QDataStream& stream, const classname & data) \
 { \
     stream<< QString(#classname);//data .metaObject()->className());
 
-//ĞòÁĞ»¯ÆÕÍ¨±äÁ¿
+//åºåˆ—åŒ–æ™®é€šå˜é‡
 #define SERIALIZE_VAR(var) \
     stream<<data. var;
 
-//ĞòÁĞ»¯Ò»¸ö»ùÀà
+//åºåˆ—åŒ–ä¸€ä¸ªåŸºç±»
 #define SERIALIZE_BASE(basename) \
     stream<<( basename & )data;
 
@@ -45,7 +45,7 @@ QDataStream& operator<<(QDataStream& stream, const classname & data) \
     return stream; \
 }
 
-//·´ĞòÁĞ»¯
+//ååºåˆ—åŒ–
 #define DE_SERIALIZE_BEGIN(classname) \
 QDataStream& operator>>(QDataStream& stream, classname & data) \
 { \
@@ -57,11 +57,11 @@ QDataStream& operator>>(QDataStream& stream, classname & data) \
         return stream; \
     }
 
-//·´ĞòÁĞ»¯ÆÕÍ¨±äÁ¿
+//ååºåˆ—åŒ–æ™®é€šå˜é‡
 #define DE_SERIALIZE_VAR(var) \
     stream>> data. var;
 
-//·´ĞòÁĞ»¯Ò»¸ö»ùÀà
+//ååºåˆ—åŒ–ä¸€ä¸ªåŸºç±»
 #define DE_SERIALIZE_BASE(basename) \
     stream>>( basename & )data;
 

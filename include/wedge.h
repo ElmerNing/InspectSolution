@@ -1,4 +1,4 @@
-#ifndef WEDGE_H
+ï»¿#ifndef WEDGE_H
 #define WEDGE_H
 
 class Probe;
@@ -30,68 +30,68 @@ public:
     explicit Wedge(WedgeType type = WedgeType::WT_PA);
     virtual ~Wedge();
 
-    //ÉèÖÃÎªÄ¬ÈÏÖµ
+    //è®¾ç½®ä¸ºé»˜è®¤å€¼
     void Default(WedgeType type = WedgeType::WT_PA);
 
-    //¼ÓÔØºÍ±£³ÖºÍOlympus¼æÈİµÄĞ¨¿éÎÄ¼ş¸ñÊ½
+    //åŠ è½½å’Œä¿æŒå’ŒOlympuså…¼å®¹çš„æ¥”å—æ–‡ä»¶æ ¼å¼
     bool LoadFromOlympus(const QString& path, WedgeType type);
     bool SaveToOlympus(const QString& path);
 
-    //Ğ¨¿éÀàĞÍ PA or UT
+    //æ¥”å—ç±»å‹ PA or UT
     WedgeType Type() const { return m_wedgeType; }
     //void Type(WedgeType val) { m_wedgeType = val; }
 
-    //Ğ¨¿éÃû×Ö
+    //æ¥”å—åå­—
     QString Model() const { return m_model; }
     void Model(QString val) { m_model = val; }
 
-    //Ğ¨¿éËùÊôĞòÁĞ
+    //æ¥”å—æ‰€å±åºåˆ—
     QString Serial() const { return m_serial; }
     void Serial(QString val) { m_serial = val; }
 
-    //Ğ¨¿é½Ç¶È (½Ç¶È)
+    //æ¥”å—è§’åº¦ (è§’åº¦)
     float Angle() const { return m_angle; }
     void Angle(float val) { m_angle = val; }
 
-    //²Î¿¼µã (mm)
+    //å‚è€ƒç‚¹ (mm)
     float RefPoint() const { return m_refPoint; }
     void RefPoint(float val) { m_refPoint = val; }
     
-    //ÉùËÙ (m/s)
+    //å£°é€Ÿ (m/s)
     float Velocity() const { return m_velocity; }
     void Velocity(float val) { m_velocity = val; }
 
-    //UTµÄĞ¨¿éÑÓ³Ù (us)
+    //UTçš„æ¥”å—å»¶è¿Ÿ (us)
     float Ut_wedgeDelay() const { return m_ut_wedgeDelay; }
     void Ut_wedgeDelay(float val) { m_ut_wedgeDelay = val; }
 
-    //UTĞ¨¿éÊ±µÄÉù²¨ÀàĞÍ,ºá²¨ or ×İ²¨
+    //UTæ¥”å—æ—¶çš„å£°æ³¢ç±»å‹,æ¨ªæ³¢ or çºµæ³¢
     WedgeWaveType Ut_waveType() const { return m_ut_waveType; }
     void Ut_waveType(WedgeWaveType val) { m_ut_waveType = val; }
 
-    //PAĞ¨¿éµÄ·½Ïò, ÕıÏò or ·´Ïò
+    //PAæ¥”å—çš„æ–¹å‘, æ­£å‘ or åå‘
     WedgeOrient Pa_orient() const { return m_pa_orient; }
     void Pa_orient(WedgeOrient val) { m_pa_orient = val; }
 
-    //µÚÒ»ÕñÔª¸ß¶È (mm)
+    //ç¬¬ä¸€æŒ¯å…ƒé«˜åº¦ (mm)
     float Pa_height() const { return m_pa_height; }
     void Pa_height(float val) { m_pa_height = val; }
 
-    //Ö÷ÖáÆ«ÖÃ (mm)
+    //ä¸»è½´åç½® (mm)
     float Pa_priOffset() const { return m_pa_priOffset; }
     void Pa_priOffset(float val) { m_pa_priOffset = val; }
 
-    //´ÎÖáÆ«ÖÃ (mm)
+    //æ¬¡è½´åç½® (mm)
     float Pa_secOffset() const { return m_pa_secOffset; }
     void Pa_secOffset(float val) { m_pa_secOffset = val; }
 
-    //ÕóÔªÎ»ÖÃ
+    //é˜µå…ƒä½ç½®
     QPointF Pa_elmPos(int index, const Probe& probe, float offset = 0) const;
 
 private:
-    //Ğ¨¿éÀàĞÍ
+    //æ¥”å—ç±»å‹
     WedgeType m_wedgeType;
-    //¹²ÓÃ
+    //å…±ç”¨
     QString m_model;
     QString m_serial;
     float m_angle;

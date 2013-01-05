@@ -1,7 +1,7 @@
-#ifndef GCONFIG_H
+ï»¿#ifndef GCONFIG_H
 #define GCONFIG_H
 
-//PaµçÑ¹
+//Paç”µå‹
 enum PaVoltage
 {
     PV_50,
@@ -11,7 +11,7 @@ enum PaVoltage
 };
 SERIALIZE_ENABLE_ENUM(PaVoltage);
 
-//UtµçÑ¹Öµ
+//Utç”µå‹å€¼
 enum UtVoltage
 {
     UV_Low = 0,
@@ -21,23 +21,23 @@ enum UtVoltage
 };
 SERIALIZE_ENABLE_ENUM(UtVoltage);
 
-//µ×°å¸÷¸ö²¿¼ş
+//åº•æ¿å„ä¸ªéƒ¨ä»¶
 enum BoardVoltage
 {
-    //pa·¢ÉäµçÑ¹
+    //paå‘å°„ç”µå‹
     BV_PaTx = 0,
-    //12V×ª5.4V
+    //12Vè½¬5.4V
     BV_to54 = 1,
-    //12V×ª5V
+    //12Vè½¬5V
     BV_to5 = 2,
-    //FPGAµçÔ´
+    //FPGAç”µæº
     BV_FPGA = 3,
-    //Ut·¢ÉäµçÑ¹
+    //Utå‘å°„ç”µå‹
     BV_UtRx = 4,
 };
 SERIALIZE_ENABLE_ENUM(BoardVoltage);
 
-//³£¹æ1 ×èÄá
+//å¸¸è§„1 é˜»å°¼
 enum UtDamp
 {
     UD_50R = 0,
@@ -47,7 +47,7 @@ enum UtDamp
 };
 SERIALIZE_ENABLE_ENUM(UtDamp);
 
-//UtÊÕ·¢Ä£Ê½
+//Utæ”¶å‘æ¨¡å¼
 enum UtRxTx
 {
     URT_PC = 0,
@@ -55,7 +55,7 @@ enum UtRxTx
 };
 SERIALIZE_ENABLE_ENUM(UtRxTx);
 
-//±àÂëÆ÷ÀàĞÍ
+//ç¼–ç å™¨ç±»å‹
 enum EncoderType
 {
     ET_BOTH = 3,
@@ -64,7 +64,7 @@ enum EncoderType
 };
 SERIALIZE_ENABLE_ENUM(EncoderType);
 
-//±àÂëÆ÷×´Ì¬
+//ç¼–ç å™¨çŠ¶æ€
 enum EncoderStatus
 {
     ES_NORMAL = 0,
@@ -73,7 +73,7 @@ enum EncoderStatus
 };
 SERIALIZE_ENABLE_ENUM(EncoderStatus);
 
-//±àÂëÆ÷¼«ĞÔ
+//ç¼–ç å™¨ææ€§
 enum EncoderPolar
 {
     EP_FORWARD = 0,
@@ -81,7 +81,7 @@ enum EncoderPolar
 };
 SERIALIZE_ENABLE_ENUM(EncoderPolar);
 
-//½ÓÊÕÍ¨µÀ
+//æ¥æ”¶é€šé“
 enum RxChannel
 {
     RX_CHANNEL_0 =0,    RX_CHANNEL_1 =1,      RX_CHANNEL_2 =2,     RX_CHANNEL_3=3,
@@ -102,80 +102,80 @@ public:
     explicit Gconfig();
     virtual ~Gconfig();
 
-    //ÉèÖÃÎªÄ¬ÈÏÖµ
+    //è®¾ç½®ä¸ºé»˜è®¤å€¼
     void Default();
 
-    //Ïà¿ØÕóµçÑ¹
+    //ç›¸æ§é˜µç”µå‹
     PaVoltage PaV() const { return m_paV; }
     void PaV(PaVoltage val) { m_paV = val; }
 
-    //UtµçÑ¹
+    //Utç”µå‹
     UtVoltage UtV() const { return m_utV; }
     void UtV(UtVoltage val) { m_utV = val; }
 
-    //µ×°åµçÑ¹¸÷¸ö²¿·ÖÊ¹ÄÜ
+    //åº•æ¿ç”µå‹å„ä¸ªéƒ¨åˆ†ä½¿èƒ½
     bool BoardV(BoardVoltage bv) const { return m_boardEnable[(int)bv]; }
     void BoardV(BoardVoltage bv, bool enable) { m_boardEnable[(int)bv] = enable; }
 
-    //Ut×èÄá
+    //Uté˜»å°¼
     UtDamp DampUt1() const { return m_dampUt1; }
     void DampUt1(UtDamp val) { m_dampUt1 = val; }
     UtDamp DampUt2() const { return m_dampUt2; }
     void DampUt2(UtDamp val) { m_dampUt2 = val; }
 
-    //Ut ÊÕ·¢Ä£Ê½
+    //Ut æ”¶å‘æ¨¡å¼
     UtRxTx PeUt1() const { return m_bPeUt1; }
     void PeUt1(UtRxTx val) { m_bPeUt1 = val; }
     UtRxTx PeUt2() const { return m_bPeUt2; }
     void PeUt2(UtRxTx val) { m_bPeUt2 = val; }
 
-    //±àÂëÆ÷XÀàĞÍ
+    //ç¼–ç å™¨Xç±»å‹
     EncoderType EncoderTypeX() const { return m_encoderTypeX; }
     void EncoderTypeX(EncoderType val) { m_encoderTypeX = val; }
     
-    //±àÂëÆ÷X×´Ì¬,Õı³£, Í£Ö¹, ÔİÍ£
+    //ç¼–ç å™¨XçŠ¶æ€,æ­£å¸¸, åœæ­¢, æš‚åœ
     EncoderStatus EncoderStatusX() const { return m_encoderStatusX; }
     void EncoderStatusX(EncoderStatus val) { m_encoderStatusX = val; }
     
-    //±àÂëÆ÷¼«ĞÔ,ÕıÏò,·´Ïò
+    //ç¼–ç å™¨ææ€§,æ­£å‘,åå‘
     EncoderPolar EncoderPolarX() const { return m_encoderPolarX; }
     void EncoderPolarX(EncoderPolar val) { m_encoderPolarX = val; }
 
-    //±àÂëÆ÷XÀàĞÍ
+    //ç¼–ç å™¨Xç±»å‹
     EncoderType EncoderTypeY() const { return m_encoderTypeY; }
     void EncoderTypeY(EncoderType val) { m_encoderTypeY = val; }
     
-    //±àÂëÆ÷X×´Ì¬,Õı³£, Í£Ö¹, ÔİÍ£
+    //ç¼–ç å™¨XçŠ¶æ€,æ­£å¸¸, åœæ­¢, æš‚åœ
     EncoderStatus EncoderStatusY() const { return m_encoderStatusY; }
     void EncoderStatusY(EncoderStatus val) { m_encoderStatusY = val; }
     
-    //±àÂëÆ÷¼«ĞÔ,ÕıÏò,·´Ïò
+    //ç¼–ç å™¨ææ€§,æ­£å‘,åå‘
     EncoderPolar EncoderPolarY() const { return m_encoderPolarY; }
     void EncoderPolarY(EncoderPolar val) { m_encoderPolarY = val; }
 
-    //32Í¨µÀÊ¹ÄÜ
+    //32é€šé“ä½¿èƒ½
     bool ChanelEnable(RxChannel chn) const { return m_rxChanelEnable[chn]; }
     void ChanelEnable(RxChannel chn, bool enable) { m_rxChanelEnable[chn] = enable; }
 
 private:
-    //paµçÑ¹
+    //paç”µå‹
     PaVoltage m_paV;
 
-    //utµçÑ¹
+    //utç”µå‹
     UtVoltage m_utV;
 
-    //µ×°åµçÑ¹Ê¹ÄÜÇé¿ö
+    //åº•æ¿ç”µå‹ä½¿èƒ½æƒ…å†µ
     QBitArray m_boardEnable;
 
-    //Ut×èÄá
+    //Uté˜»å°¼
     UtDamp m_dampUt1;
     UtDamp m_dampUt2;
 
-    //Ut ÊÕ·¢Ä£Ê½
+    //Ut æ”¶å‘æ¨¡å¼
     UtRxTx m_bPeUt1;
     UtRxTx m_bPeUt2;
 
-    //±àÂëÆ÷¿ØÖÆ(X·½Ïò,Y·½Ïò): ÀàĞÍ,Ê¹ÄÜ,¼«ĞÔ
+    //ç¼–ç å™¨æ§åˆ¶(Xæ–¹å‘,Yæ–¹å‘): ç±»å‹,ä½¿èƒ½,ææ€§
     EncoderType m_encoderTypeX;
     EncoderStatus m_encoderStatusX;
     EncoderPolar m_encoderPolarX;
@@ -184,10 +184,10 @@ private:
     EncoderStatus m_encoderStatusY;
     EncoderPolar m_encoderPolarY;
 
-    //32¸ö½ÓÊÜÍ¨µÀÊ¹ÄÜ
+    //32ä¸ªæ¥å—é€šé“ä½¿èƒ½
     QBitArray m_rxChanelEnable;
 
-    //FPGAÊ¹ÄÜ/¶³½á, Ä¿Ç°Ã²ËÆÎŞĞ§,ĞèÒªÍ¨¹ıGPIOÀ´ÅäÖÃfpgaÊ¹ÄÜ/¶³½á
+    //FPGAä½¿èƒ½/å†»ç»“, ç›®å‰è²Œä¼¼æ— æ•ˆ,éœ€è¦é€šè¿‡GPIOæ¥é…ç½®fpgaä½¿èƒ½/å†»ç»“
     bool m_fpgaEnable;
 
 

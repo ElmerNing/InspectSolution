@@ -1,14 +1,14 @@
-#ifndef GROUPLAW_H
+ï»¿#ifndef GROUPLAW_H
 #define GROUPLAW_H
 
 #include "beamlaw.h"
 
 enum RectifierMode
 {
-    RM_RF = 0,      //ÉäÆµ
-    RM_HALFP = 1,   //Õı°ë²¨
-    RM_HALFN = 2,   //¸º°ë²¨
-    RM_WAVE = 3,    //È«²¨
+    RM_RF = 0,      //å°„é¢‘
+    RM_HALFP = 1,   //æ­£åŠæ³¢
+    RM_HALFN = 2,   //è´ŸåŠæ³¢
+    RM_WAVE = 3,    //å…¨æ³¢
 };
 SERIALIZE_ENABLE_ENUM(RectifierMode);
 
@@ -61,10 +61,10 @@ public:
     explicit GroupLaw();
     virtual ~GroupLaw();
 
-    //ÉèÖÃÎªÄ¬ÈÏÖµ
+    //è®¾ç½®ä¸ºé»˜è®¤å€¼
     virtual void Default();
 
-    //ÔöÒæ,²Î¿¼ÔöÒæ(µ¥Î»db, ¾«¶È0.1db). ×îÖÕÔöÒæ = m_gain + m_gainref
+    //å¢ç›Š,å‚è€ƒå¢ç›Š(å•ä½db, ç²¾åº¦0.1db). æœ€ç»ˆå¢ç›Š = m_gain + m_gainref
     float Gain() const { return m_gain; }
     void Gain(float val) { m_gain = val; }
     float GainRef() const { return m_gainRef; }
@@ -76,91 +76,91 @@ public:
     int Start() const { return m_start; }
     void Start(int val) { m_start = val; }
 
-    //¼ì²¨Ä£Ê½, ÉäÆµÊ±, ×Ô¶¯¹Ø±ÕÊÓÆµÂË²¨
+    //æ£€æ³¢æ¨¡å¼, å°„é¢‘æ—¶, è‡ªåŠ¨å…³é—­è§†é¢‘æ»¤æ³¢
     RectifierMode Rectifier() const { return m_rectifier; }
     void Rectifier(RectifierMode val) { 
         m_rectifier = val; 
         if (val == RectifierMode::RM_RF ) m_isVideoFilter = false;
     }
     
-    //ÊÇ·ñÊÓÆµÂË²¨
+    //æ˜¯å¦è§†é¢‘æ»¤æ³¢
     bool VideoFilter() const { return m_isVideoFilter; }
     void VideoFilter(bool val) { m_isVideoFilter = val; }
 
-    //Æµ´øÑ¡Ôñ
+    //é¢‘å¸¦é€‰æ‹©
     FreqBand Freq() const { return m_freq; }
     void Freq(FreqBand val) { m_freq = val; }
 
-    //×ÜÔöÒæ(µ¥Î»db, 20dB£­48dB)
-    //20*log( N==1 ? 4095 : 6400/N),ÆäÖĞNÎªÕóÔªÊı
-    //ÒÉÎÊ,Ã¿¸öbeamËùÓÃÕóÔªÊı ¶¼¿ÉÄÜ²»Ò»Ñù
+    //æ€»å¢ç›Š(å•ä½db, 20dBï¼48dB)
+    //20*log( N==1 ? 4095 : 6400/N),å…¶ä¸­Nä¸ºé˜µå…ƒæ•°
+    //ç–‘é—®,æ¯ä¸ªbeamæ‰€ç”¨é˜µå…ƒæ•° éƒ½å¯èƒ½ä¸ä¸€æ ·
     float Sumgain() const { return m_sumgain; }
     void Sumgain(float val) { m_sumgain = val; }
     virtual float BestSumgain() const = 0;
 
-    //ºñ¶È²î,(Ã²ËÆÎŞÓÃ)
+    //åšåº¦å·®,(è²Œä¼¼æ— ç”¨)
     float ThickFactor() const { return m_thickFactor; }
     void ThickFactor(float val) { m_thickFactor = val; }
 
-    //Õ¢ÃÅ¸ß¶È 0% ~ 100%
+    //é—¸é—¨é«˜åº¦ 0% ~ 100%
     int GateHeight(Gate gate) const { return m_gateHeight[gate]; }
     void GateHeight(Gate gate, int height) { m_gateHeight[gate] = height; }
 
-    //Õ¢ÃÅÂß¼­,²¨Ç°²¨·å
+    //é—¸é—¨é€»è¾‘,æ³¢å‰æ³¢å³°
     LogicMode GateLogic(Gate gate) const { return m_gateLogic[gate]; }
     void GateLogic(Gate gate, LogicMode logic) { m_gateLogic[gate] = logic; }
 
-    //Ê¹ÓÃÌ½Í·
+    //ä½¿ç”¨æ¢å¤´
     ProbeChannel ChannelOfProbe() const { return m_probe; }
     void ChannelOfProbe(ProbeChannel val) { m_probe = val; }
 
 private:
-    //ÔöÒæ,²Î¿¼ÔöÒæ(µ¥Î»db, ¾«¶È0.1db). ×îÖÕÔöÒæ = m_gain + m_gainref
+    //å¢ç›Š,å‚è€ƒå¢ç›Š(å•ä½db, ç²¾åº¦0.1db). æœ€ç»ˆå¢ç›Š = m_gain + m_gainref
     float m_gain; 
     float m_gainRef;
     
-    //É¨²éÆğÊ¼Óë·¶Î§,²»°üÀ¨Ğ¨¿éÑÓ³Ù(µ¥Î»mm), 
+    //æ‰«æŸ¥èµ·å§‹ä¸èŒƒå›´,ä¸åŒ…æ‹¬æ¥”å—å»¶è¿Ÿ(å•ä½mm), 
     int m_start;
     int m_range;
 
-    //¼ì²¨Ä£Ê½
+    //æ£€æ³¢æ¨¡å¼
     RectifierMode m_rectifier;
 
-    //ÊÇ·ñÊÓÆµÂË²¨
+    //æ˜¯å¦è§†é¢‘æ»¤æ³¢
     bool m_isVideoFilter;
 
-    //Æµ´øÑ¡Ôñ
+    //é¢‘å¸¦é€‰æ‹©
     FreqBand m_freq;
 
-    //×ÜÔöÒæ(µ¥Î»db)
+    //æ€»å¢ç›Š(å•ä½db)
     float m_sumgain;
 
-    //ºñ¶È²î,(Ã²ËÆÎŞÓÃ)
+    //åšåº¦å·®,(è²Œä¼¼æ— ç”¨)
     float m_thickFactor;
 
-    //Ì½Í·¸÷¸öÍ¨µÀÊ¹ÄÜÇé¿ö
+    //æ¢å¤´å„ä¸ªé€šé“ä½¿èƒ½æƒ…å†µ
     //QByteArray m_probeEnable;
 
-    //Õ¢ÃÅ¸ß¶ÈÕ¢ÃÅ¸ß¶È 0% ~ 100% ºÍ Õ¢ÃÅÂß¼­ ²¨Ç°²¨·å
+    //é—¸é—¨é«˜åº¦é—¸é—¨é«˜åº¦ 0% ~ 100% å’Œ é—¸é—¨é€»è¾‘ æ³¢å‰æ³¢å³°
     QMap<Gate, ushort> m_gateHeight;
     QMap<Gate, LogicMode> m_gateLogic;
 
-    //Æ½¾ù
+    //å¹³å‡
     AverageMode m_Average;
 
-    //TTLÔ´
+    //TTLæº
     TTLSource m_ttl;
 
-    // ²âÁ¿×î´óºñ¶È (µ¥Î»Î´Öª,Çó½âÊÍ!)
+    // æµ‹é‡æœ€å¤§åšåº¦ (å•ä½æœªçŸ¥,æ±‚è§£é‡Š!)
     uint m_hicknessMax;
 
-    // Âö³å¿í¶È 30~500ns 2.5nsÎª²½½ø
+    // è„‰å†²å®½åº¦ 30~500ns 2.5nsä¸ºæ­¥è¿›
     float m_pulseWidth;
 
-    //Ê¹ÓÃÌ½Í·
+    //ä½¿ç”¨æ¢å¤´
     ProbeChannel m_probe;
 
-    //ĞòÁĞ»¯,·´ĞòÁĞ»¯,Ê¹ÄÜ
+    //åºåˆ—åŒ–,ååºåˆ—åŒ–,ä½¿èƒ½
     SERIALIZE_ENABLE_CLASS(GroupLaw);
 };
 

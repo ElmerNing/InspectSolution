@@ -1,9 +1,9 @@
-#ifndef BEAMLAW_H
+ï»¿#ifndef BEAMLAW_H
 #define BEAMLAW_H
 
 #include "qrange.h"
 
-//3¸öÌ½Í·Í¨µÀ
+//3ä¸ªæ¢å¤´é€šé“
 enum ProbeChannel
 {
     pa = 0,
@@ -12,7 +12,7 @@ enum ProbeChannel
 };
 SERIALIZE_ENABLE_ENUM(ProbeChannel);
 
-//Õ¢ÃÅ
+//é—¸é—¨
 enum Gate
 {
     GATE_A,
@@ -21,17 +21,17 @@ enum Gate
 };
 SERIALIZE_ENABLE_ENUM(Gate)
 
-//Éî¶ÈÄ£Ê½
+//æ·±åº¦æ¨¡å¼
 enum DepthType
 {
-    DT_BEAM_PATH = 0,   //°ëÉù³Ì
-    DT_TRUE_DEPTH = 1,  //ÕæÊµÉî¶È
+    DT_BEAM_PATH = 0,   //åŠå£°ç¨‹
+    DT_TRUE_DEPTH = 1,  //çœŸå®æ·±åº¦
 };
 SERIALIZE_ENABLE_ENUM(DepthType)
 
 struct ElmDelay
 {
-    //µ¥Î»(ns)
+    //å•ä½(ns)
     ElmDelay(){TxDelay = 0; RxDelay = 0;}
     ushort TxDelay;
     ushort RxDelay;
@@ -44,41 +44,41 @@ public:
     explicit BeamLaw();
     virtual ~BeamLaw();
 
-    //ÉèÖÃÎªÄ¬ÈÏÖµ
+    //è®¾ç½®ä¸ºé»˜è®¤å€¼
     void Default();
 
-    //¼¤·¢ÕóÔªÊı
+    //æ¿€å‘é˜µå…ƒæ•°
     int ActiveElems() const { return m_activeElems; }
     void ActiveElems(int val) { m_activeElems = val; m_delay.clear(); m_delay.resize(m_activeElems); }
-    //·¢ÉäÆğÊ¼ÕóÔª
+    //å‘å°„èµ·å§‹é˜µå…ƒ
     int TxFirst() const { return m_txFirst; }
     void TxFirst(int val) { m_txFirst = val; }
-    //½ÓÊÜÆğÊ¼ÕóÔª
+    //æ¥å—èµ·å§‹é˜µå…ƒ
     int RxFirst() const { return m_rxFirst; }
     void RxFirst(int val) { m_rxFirst = val; }
-    //ÉèÖÃÕóÔªÑÓ³Ù(µ¥Î» ns)
+    //è®¾ç½®é˜µå…ƒå»¶è¿Ÿ(å•ä½ ns)
     void TxDelay(int index, ushort delay) {m_delay[index].TxDelay = delay; }
     void RxDelay(int index, ushort delay) {m_delay[index].RxDelay = delay; }
     ushort TxDelay(int index) { return m_delay[index].TxDelay; }
     ushort RxDelay(int index) { return m_delay[index].RxDelay; }
-    //Õ¢ÃÅ²âÁ¿·¶Î§
+    //é—¸é—¨æµ‹é‡èŒƒå›´
     QRangeF GateRange(Gate gate) { return m_gateRange[gate]; }
     QRangeF GateRange(Gate gate, QRangeF range) { m_gateRange[gate] = range; }
 
 private:
-    //¼¤·¢ÕóÔªÊı(1-32)
+    //æ¿€å‘é˜µå…ƒæ•°(1-32)
     int m_activeElems;
-    //·¢ÉäÆğÊ¼ÕóÔª
+    //å‘å°„èµ·å§‹é˜µå…ƒ
     int m_txFirst;
-    //½ÓÊÜÆğÊ¼ÕóÔª
+    //æ¥å—èµ·å§‹é˜µå…ƒ
     int m_rxFirst;
-    //ÕóÔªÊÕ·¢ÑÓ³Ù
+    //é˜µå…ƒæ”¶å‘å»¶è¿Ÿ
     QVector<ElmDelay> m_delay;
-    //Õ¢ÃÅ·¶Î§
+    //é—¸é—¨èŒƒå›´
     QMap< Gate, QRangeF > m_gateRange;
-    //ÔöÒæ²¹³¥(db,·Ö±æÂÊ0.1db)
+    //å¢ç›Šè¡¥å¿(db,åˆ†è¾¨ç‡0.1db)
     float m_gainOffset;
-    //²¨ÊøÑÓ³Ù(us, ·Ö±æÂÊ10ns)
+    //æ³¢æŸå»¶è¿Ÿ(us, åˆ†è¾¨ç‡10ns)
     float m_beamDelay;
     
     SERIALIZE_ENABLE_CLASS(BeamLaw);

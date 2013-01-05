@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "solution_sc.h"
 #include <math.h>
 
@@ -33,7 +33,7 @@ Solution_sc::~Solution_sc()
 
 bool Solution_sc::AutoGenerate()
 {
-    //Çå³ı
+    //æ¸…é™¤
     m_groupLaws.clear();
 
     //PA
@@ -45,22 +45,22 @@ bool Solution_sc::AutoGenerate()
             WeldFill fill (weldArea.key(), i);
             int index = m_groupLaws.size();
 
-            //Ìí¼ÓÒ»¸ö¹ØÁªÖÁfillµÄÍ¨µÀ
+            //æ·»åŠ ä¸€ä¸ªå…³è”è‡³fillçš„é€šé“
             m_groupLaws.append(GroupLaw_sc(fill));
             
-            //ÉèÖÃÍ¨µÀ¿×¾¶
+            //è®¾ç½®é€šé“å­”å¾„
             m_groupLaws[index].Aperture( GetAperture() );
             
-            //ÉèÖÃ¾Û½¹Éî¶ÈÓë¾Û½¹·¢Éä½Ç¶È
+            //è®¾ç½®èšç„¦æ·±åº¦ä¸èšç„¦å‘å°„è§’åº¦
             float depth = weldArea->Depth() + 
                 (index + 0.5f) * weldArea->Thickness() / weldArea->Division();
             m_groupLaws[index].Depth(depth);
             m_groupLaws[index].Angle(weldArea->Angle());
 
-            //ÉèÖÃ×éÎªPa
+            //è®¾ç½®ç»„ä¸ºPa
             m_groupLaws[index].ChannelOfProbe(ProbeChannel::pa);
 
-            //¼ÆËã
+            //è®¡ç®—
             m_groupLaws[index].GenerateLaw(
                 m_offset[ProbeChannel::pa],
                 m_probes[ProbeChannel::pa],
@@ -80,11 +80,11 @@ void Solution_sc::PaProbeOffset()
     QVector<QRangeF> ranges;
     for (auto weldArea=m_weldArea.begin(); weldArea!=m_weldArea.end(); weldArea++)
     {
-        //¼ÆËã¼ì²âÄ³¸öº¸·ìÇøÓòweldArea,Ì½Í·Æ«ÖÃĞèÒªÂú×ãµÄ·¶Î§
+        //è®¡ç®—æ£€æµ‹æŸä¸ªç„Šç¼åŒºåŸŸweldArea,æ¢å¤´åç½®éœ€è¦æ»¡è¶³çš„èŒƒå›´
         QRangeF range = PaProbeOffset_helper(*weldArea);
         ranges.append(range);
     }
-    //ÇóÈ¡ËùÓĞrangeµÄ½»¼¯
+    //æ±‚å–æ‰€æœ‰rangeçš„äº¤é›†
     QRangeF r( 0, std::numeric_limits<float>::max());
     foreach (QRangeF range, ranges)
     {
@@ -97,7 +97,7 @@ void Solution_sc::PaProbeOffset()
     int start = qCeil( r.Start() );
     int end = qFloor( r.End() );
 
-    //ÉèÖÃPAÌ½Í·µÄÆ«ÖÃ!!!
+    //è®¾ç½®PAæ¢å¤´çš„åç½®!!!
     m_offset[ProbeChannel::pa] = qRound( 0.5f * (start+end) );
 }
 
@@ -106,11 +106,11 @@ QRangeF Solution_sc::PaProbeOffset_helper( const WeldArea& area )
     Wedge* wedge = &m_wedges[ProbeChannel::pa];
     Probe* probe = &m_probes[ProbeChannel::pa];
 
-    //Ã»ÓĞÊ¹ÓÃ
+    //æ²¡æœ‰ä½¿ç”¨
     if (area.Division() == 0)
         return QRangeF(0, std::numeric_limits<float>::max());
 
-    //¾Û½¹µã·¶Î§
+    //èšç„¦ç‚¹èŒƒå›´
     QPointF focusStart(0,0), focusEnd(0,0);
     if (area.Angle() >= 0)
     {
@@ -123,30 +123,30 @@ QRangeF Solution_sc::PaProbeOffset_helper( const WeldArea& area )
         focusStart.ry() =  focusEnd.ry() - area.Thickness();
     }
 
-    //ÕÛÉäÂÊ
+    //æŠ˜å°„ç‡
     float rate = wedge->Velocity() / m_material.Velocity();
-    //ÕÛÉä½Ç¶È,ÈëÉä½Ç¶È,µ¥Î» »¡¶È
+    //æŠ˜å°„è§’åº¦,å…¥å°„è§’åº¦,å•ä½ å¼§åº¦
     float rAngle, iAngle;
     rAngle = qAbs(area.Angle() * M_PI_180);
     iAngle = qAsin(qSin(rAngle) * rate);
 
-    //Ì½Í·×î´ó£¬×îĞ¡ÕóÔªµÄ×ø±ê£¬
+    //æ¢å¤´æœ€å¤§ï¼Œæœ€å°é˜µå…ƒçš„åæ ‡ï¼Œ
     int eStart = GetAperture() / 2;
     int eEnd = probe->Pa_elmQty() - 1 - eStart;
     QPointF eStartPos = probe->Pa_elmPos(eStart, *wedge);
     QPointF eEndPos = probe->Pa_elmPos(eEnd, *wedge);
 
-    //Ì½Í·ËùÄÜ¸²¸ÇµÄÈëÉäµã·¶Î§
+    //æ¢å¤´æ‰€èƒ½è¦†ç›–çš„å…¥å°„ç‚¹èŒƒå›´
     float x1 = eStartPos.x() - qAbs(eStartPos.y()) * qTan(iAngle);
     float x2 = eEndPos.x() - qAbs(eEndPos.y()) * qTan(iAngle);
     float probeIndexMin = qMin( x1, x2 );
     float probeIndexMax = qMax( x1, x2 );
 
-    //É¨²éº¸·ìÇøÓòËùĞè¸²¸ÇµÄÈëÉäµã·¶Î§
+    //æ‰«æŸ¥ç„Šç¼åŒºåŸŸæ‰€éœ€è¦†ç›–çš„å…¥å°„ç‚¹èŒƒå›´
     float probeIndexStart = focusStart.y() * qTan(rAngle);
     float probeIndexEnd = focusEnd.y() * qTan(rAngle);
 
-    //Ì½Í·Æ«ÒÆ
+    //æ¢å¤´åç§»
     float maxOffset = probeIndexStart - probeIndexMin;
     float minOffset = probeIndexEnd - probeIndexMax;
     return QRangeF(minOffset, maxOffset);

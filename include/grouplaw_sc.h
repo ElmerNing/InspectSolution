@@ -1,4 +1,4 @@
-#ifndef GROUPLAW_SC_H__
+ï»¿#ifndef GROUPLAW_SC_H__
 #define GROUPLAW_SC_H__
 
 #include "grouplaw.h"
@@ -17,54 +17,54 @@ public:
 
     virtual void Default();
 
-    //µ±Ç°group¶ÔÓ¦µÄÇøÓò
+    //å½“å‰groupå¯¹åº”çš„åŒºåŸŸ
     const WeldFill& Fill() const { return m_fill; }
     WeldFill& Fill() { return m_fill; }
     void Fill(WeldFill val) { m_fill = val; }
 
-    //ÉèÖÃ¿×¾¶
+    //è®¾ç½®å­”å¾„
     int Aperture() const { return m_aperture; }
     void Aperture(int aperture) { m_aperture = aperture; m_lawReady = false; }
     
-    //¾Û½¹½Ç¶È
+    //èšç„¦è§’åº¦
     float Angle() const { return m_angle; }
     void Angle(float val) { m_angle = qAbs(val); m_lawReady = false;}
 
-    //¾Û½¹Éî¶È
+    //èšç„¦æ·±åº¦
     float Depth() const { return m_depth; }
     void Depth(float val) { m_depth = val; m_lawReady = false; }
 
-    //¼ÆËã¾Û½¹·¨Ôò
+    //è®¡ç®—èšç„¦æ³•åˆ™
     void GenerateLaw(float offset, const Probe& probe, const Wedge& wedge, const Material& material);
 
-    //GenerateLawÊÇ·ñ¼ÆËãÍê³É 
+    //GenerateLawæ˜¯å¦è®¡ç®—å®Œæˆ 
     bool LawReady() const { return m_lawReady; }
 
-    //ÒÔÏÂLawÇ°×ºµÄº¯Êı, ĞèÒªGenerateLawºó²ÅÄÜÕıÈ·µ÷ÓÃ
+    //ä»¥ä¸‹Lawå‰ç¼€çš„å‡½æ•°, éœ€è¦GenerateLawåæ‰èƒ½æ­£ç¡®è°ƒç”¨
 
-    //TxµÄÖĞĞÄÕóÔª×ø±ê
+    //Txçš„ä¸­å¿ƒé˜µå…ƒåæ ‡
     QPointF Law_MidElmPos() const { Q_ASSERT(m_lawReady); return m_midElmPos; }
     
-    //TxµÄÈëÉäµã×ø±ê
+    //Txçš„å…¥å°„ç‚¹åæ ‡
     float Law_ProbIndex() const { Q_ASSERT(m_lawReady); return m_probIndex; }
     
-    //TxµÄÊµ¼Ê·¢Éä½Ç¶È
+    //Txçš„å®é™…å‘å°„è§’åº¦
     float Law_ActualAngle() const { Q_ASSERT(m_lawReady); return m_actualAngle; }
 
 public:
     virtual float BestSumgain() const;
 
 private:
-    //Ö´ĞĞGenerateLawÇ°,ĞèÒªÉèÖÃµÄÒ»Ğ©Öµ
+    //æ‰§è¡ŒGenerateLawå‰,éœ€è¦è®¾ç½®çš„ä¸€äº›å€¼
     WeldFill m_fill;
     int m_aperture;
     float m_angle;
     float m_depth;
 
-    //ÊÇ·ñÒÑ¾­GenerateLaw
+    //æ˜¯å¦å·²ç»GenerateLaw
     bool m_lawReady;
 
-    //Ö´ĞĞGenerateLawºó,µÃµ½µÄ¼ÆËã½á¹û
+    //æ‰§è¡ŒGenerateLawå,å¾—åˆ°çš„è®¡ç®—ç»“æœ
     BeamLaw_sc m_beamLaw;
     QPointF m_midElmPos;
     float m_probIndex;

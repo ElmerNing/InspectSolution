@@ -1,4 +1,4 @@
-#ifndef QRANGE_H
+﻿#ifndef QRANGE_H
 #define QRANGE_H
 #include <qmap.h>
 

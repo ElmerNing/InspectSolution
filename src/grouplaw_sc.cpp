@@ -1,9 +1,9 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "grouplaw_sc.h"
 #include "wedge.h"
 #include "probe.h"
 
-//¼ÆËãÈëÉäµãÎ»ÖÃ
+//è®¡ç®—å…¥å°„ç‚¹ä½ç½®
 float ComputeProbeIndex_helper(
     const QPointF& elemPos, const QPointF& focusPos , 
     const float& rate, const float& epl, 
@@ -62,12 +62,12 @@ void GroupLaw_sc::Default()
 
 void GroupLaw_sc::GenerateLaw(float offset, const Probe& probe, const Wedge& wedge, const Material& material)
 {
-    //ÕÛÉäÂÊ,¾Û½¹µã,ÕóÔª×ø±ê,ÕÛÉäÂÊ,ÈëÉäµãÎ»ÖÃ    
+    //æŠ˜å°„ç‡,èšç„¦ç‚¹,é˜µå…ƒåæ ‡,æŠ˜å°„ç‡,å…¥å°„ç‚¹ä½ç½®    
     float rate;
     rate = wedge.Velocity() / material.Velocity();
 
     QPointF focusPos(0, m_depth);
-    if (m_angle < 0)  //ÓĞÒ»´Î·´ÉäµÄÊ±ºò, ×ö¾µÃæÓ³Éä
+    if (m_angle < 0)  //æœ‰ä¸€æ¬¡åå°„çš„æ—¶å€™, åšé•œé¢æ˜ å°„
         focusPos.ry() = 2 * material.Thickness() - focusPos.y();
 
     QVector<QPointF> elemPos(probe.Pa_elmQty());
@@ -78,10 +78,10 @@ void GroupLaw_sc::GenerateLaw(float offset, const Probe& probe, const Wedge& wed
     for (int i=0; i<probeIndexPos.size(); i++)
         probeIndexPos[i] = ComputeProbeIndex(elemPos[i], focusPos, rate);
     
-    //×î¼Ñ¿×¾¶Î»ÖÃstartElm
+    //æœ€ä½³å­”å¾„ä½ç½®startElm
     int startElm = 0;
     float bestSin = qSin(qAbs(m_angle * M_PI_180));
-    float actualSin = bestSin + 1;    //·¢Éä½Ç¶È
+    float actualSin = bestSin + 1;    //å‘å°„è§’åº¦
     for (int start = 0; 
         start < probe.Pa_elmQty() - m_aperture - 1; 
         start++)
@@ -110,8 +110,8 @@ void GroupLaw_sc::GenerateLaw(float offset, const Probe& probe, const Wedge& wed
     }
     m_actualAngle = qAsin(actualSin) * M_180_PI;
 
-    //¼ÆËãÃ¿¸öÕóÔªµÄÉù³Ì
-    QVector<float> flyTime(elemPos.size());  //µ¥Î» ms
+    //è®¡ç®—æ¯ä¸ªé˜µå…ƒçš„å£°ç¨‹
+    QVector<float> flyTime(elemPos.size());  //å•ä½ ms
     float maxFlyTime = 0;
     for (int i=startElm; i<startElm+m_aperture; i++)
     {
@@ -126,7 +126,7 @@ void GroupLaw_sc::GenerateLaw(float offset, const Probe& probe, const Wedge& wed
             maxFlyTime = flyTime[i];
     }
 
-    //ÉèÖÃBeamLaw
+    //è®¾ç½®BeamLaw
     m_beamLaw.ActiveElems(m_aperture);
     m_beamLaw.RxFirst(startElm);
     m_beamLaw.TxFirst(startElm);
@@ -139,7 +139,7 @@ void GroupLaw_sc::GenerateLaw(float offset, const Probe& probe, const Wedge& wed
         m_beamLaw.RxDelay(i-startElm, delay);
     }
 
-    //·¨Ôò¼ÆËãÍê±Ï
+    //æ³•åˆ™è®¡ç®—å®Œæ¯•
     m_lawReady = true;
 }
 

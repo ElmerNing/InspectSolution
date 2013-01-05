@@ -1,4 +1,4 @@
-#ifndef PROBE_H
+ï»¿#ifndef PROBE_H
 #define PROBE_H
 
 class Wedge;
@@ -25,55 +25,55 @@ public:
     explicit Probe(ProbeType type = ProbeType::PT_PA);
     virtual ~Probe();
 
-    //ÉèÖÃÎªÄ¬ÈÏÖµ
+    //è®¾ç½®ä¸ºé»˜è®¤å€¼
     void Default(ProbeType type = ProbeType::PT_PA);
     
-    //¼ÓÔØºÍ±£³ÖºÍOlympus¼æÈİµÄĞ¨¿éÎÄ¼ş¸ñÊ½
+    //åŠ è½½å’Œä¿æŒå’ŒOlympuså…¼å®¹çš„æ¥”å—æ–‡ä»¶æ ¼å¼
     bool LoadFromOlympus(const QString& path, ProbeType type);
     bool SaveToOlympus(const QString& path);
 
-    //Ì½Í·ÀàĞÍ
+    //æ¢å¤´ç±»å‹
     ProbeType Type() const { return m_probeType; }
     //void Type(ProbeType val) { m_probeType = val; }
 
-    //Ì½Í·ĞÍºÅ
+    //æ¢å¤´å‹å·
     QString Model() const { return m_model; }
     void Model(const QString& val) { m_model = val; }
     
-    //Ì½Í·ÏµÁĞ
+    //æ¢å¤´ç³»åˆ—
     QString Serial() const { return m_serial; }
     void Serial(const QString& val) { m_serial = val; }
     
-    //Ì½Í·ÆµÂÊ (MHZ)
+    //æ¢å¤´é¢‘ç‡ (MHZ)
     float Freq() const { return m_freq; }
     void Freq(float val) { m_freq = val; }
 
-    //UtÌ½Í·ÕóÔª´óĞ¡(mm)
+    //Utæ¢å¤´é˜µå…ƒå¤§å°(mm)
     float Ut_elmSize() const { return m_ut_elmSize; }
     void Ut_elmSize(float val) { m_ut_elmSize = val; }
 
-    //PaÌ½Í·ÕóÔª¼ä¾à(mm)
+    //Paæ¢å¤´é˜µå…ƒé—´è·(mm)
     float Pa_pitch() const { return m_pa_pitch; }
     void Pa_pitch(float val) { m_pa_pitch = val; }
 
-    //PaÌ½Í·ÕóÔªÊıÁ¿
+    //Paæ¢å¤´é˜µå…ƒæ•°é‡
     int Pa_elmQty() const { return m_pa_elmQty; }
     void Pa_elmQty(int val) { m_pa_elmQty = val; }
 
-    //PaÌ½Í·ÀàĞÍ
+    //Paæ¢å¤´ç±»å‹
     PaProbeType Pa_probeType() const { return m_pa_probeType; }
     void Pa_probeType(PaProbeType val) { m_pa_probeType = val; }
 
-    //PaÌ½Í·²Î¿¼µã(mm)
+    //Paæ¢å¤´å‚è€ƒç‚¹(mm)
     float Pa_refPoint() const { return m_pa_refPoint; }
     void Pa_refPoint(float val) { m_pa_refPoint = val; }
 
-    //paÌ½Í·ÕóÔªÎ»ÖÃ
+    //paæ¢å¤´é˜µå…ƒä½ç½®
     QPointF Pa_elmPos(int index, const Wedge& wedge, float offset = 0) const;
 
 private:
     ProbeType m_probeType;
-    //¹²ÓÃ
+    //å…±ç”¨
     QString m_model;
     QString m_serial;
     float m_freq;

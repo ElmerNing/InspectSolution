@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "gconfig.h"
 
 Gconfig::Gconfig() :
@@ -14,20 +14,20 @@ Gconfig::~Gconfig()
 
 void Gconfig::Default()
 {
-    //pa utµçÑ¹ÉèÖÃÎª×îĞ¡Öµ
+    //pa utç”µå‹è®¾ç½®ä¸ºæœ€å°å€¼
     m_paV = PaVoltage::PV_50;
     m_utV = UtVoltage::UV_Low;
     
-    //µ×°åµçÑ¹È«²¿Ê¹ÄÜ
+    //åº•æ¿ç”µå‹å…¨éƒ¨ä½¿èƒ½
     m_boardEnable.fill(true);
     
-    //UT ³õÊ¼»¯Îª ×èÄá20Å·, PEÄ£Ê½
+    //UT åˆå§‹åŒ–ä¸º é˜»å°¼20æ¬§, PEæ¨¡å¼
     m_dampUt1 = UtDamp::UD_50R;
     m_dampUt2 = UtDamp::UD_50R;
     m_bPeUt1 = UtRxTx::URT_PE;
     m_bPeUt2 = UtRxTx::URT_PE;
     
-    //encoder ³õÊ¼»¯Îª Ë«Ïò, Ê¹ÄÜ, Õı¼«ĞÔ,
+    //encoder åˆå§‹åŒ–ä¸º åŒå‘, ä½¿èƒ½, æ­£ææ€§,
     m_encoderTypeX = EncoderType::ET_BOTH;
     m_encoderStatusX = EncoderStatus::ES_NORMAL;
     m_encoderPolarX = EncoderPolar::EP_FORWARD;
@@ -35,12 +35,12 @@ void Gconfig::Default()
     m_encoderStatusY = EncoderStatus::ES_NORMAL;
     m_encoderPolarY = EncoderPolar::EP_FORWARD;
 
-    //32½ÓÊÕÍ¨µÀÈ«²¿Ê¹ÄÜ
+    //32æ¥æ”¶é€šé“å…¨éƒ¨ä½¿èƒ½
     m_rxChanelEnable.fill(true);
 }
 
 
-//ĞòÁĞ»¯
+//åºåˆ—åŒ–
 SERIALIZE_BEGIN(Gconfig)
     SERIALIZE_VAR(m_paV)
     SERIALIZE_VAR(m_utV)
@@ -59,7 +59,7 @@ SERIALIZE_BEGIN(Gconfig)
     SERIALIZE_VAR(m_fpgaEnable)
 SERIALIZE_END
 
-//·´ĞòÁĞ»¯
+//ååºåˆ—åŒ–
 DE_SERIALIZE_BEGIN(Gconfig)
     DE_SERIALIZE_VAR(m_paV)
     DE_SERIALIZE_VAR(m_utV)

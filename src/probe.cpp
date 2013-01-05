@@ -1,25 +1,25 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "probe.h"
 #include "wedge.h"
 
-#pragma pack(push) //±£´æ¶ÔÆë×´Ì¬
+#pragma pack(push) //ä¿å­˜å¯¹é½çŠ¶æ€
 #pragma pack(4)
 typedef struct 
 {
-    //PA Ê±ºòÏÈ¶Á×ß4¸ö×Ö½Ú
+    //PA æ—¶å€™å…ˆè¯»èµ°4ä¸ªå­—èŠ‚
     char	A1[2];
-    unsigned char	PaProbeType;	// Ì½Í·ÀàĞÍ 1 ÊÇCustom 3 ÊÇangle beam 5 ÊÇ Contact 6ÊÇImmersion
+    unsigned char	PaProbeType;	// æ¢å¤´ç±»å‹ 1 æ˜¯Custom 3 æ˜¯angle beam 5 æ˜¯ Contact 6æ˜¯Immersion
     char	A10;
-    unsigned char	UtProbeType;	// Ì½Í·ÀàĞÍ 1 n/a 0 converntional
+    unsigned char	UtProbeType;	// æ¢å¤´ç±»å‹ 1 n/a 0 converntional
     char	A11;
-    char	cModel[20];				// Ì½Í·Ãû×Ö
-    char	cSerial[20];				// Ì½Í·Ãû×Ö
-    unsigned char	ucElemQty;		//ÕóÔªÊı
-    unsigned char	ucFreq2;			// UT Ê±ºò ÆµÂÊÊÇ (freq2 << 8) + elem_qty
-    unsigned int	iPitch;                      // ÕóÔªÖĞĞÄ¼ä¾à 0.001mm Îªµ¥Î» ·¶Î§ÊÇ0.01~65.00mm UT ÊÇElemet_size
+    char	cModel[20];				// æ¢å¤´åå­—
+    char	cSerial[20];				// æ¢å¤´åå­—
+    unsigned char	ucElemQty;		//é˜µå…ƒæ•°
+    unsigned char	ucFreq2;			// UT æ—¶å€™ é¢‘ç‡æ˜¯ (freq2 << 8) + elem_qty
+    unsigned int	iPitch;                      // é˜µå…ƒä¸­å¿ƒé—´è· 0.001mm ä¸ºå•ä½ èŒƒå›´æ˜¯0.01~65.00mm UT æ˜¯Elemet_size
     unsigned int	A3;
     unsigned short A4;
-    unsigned short wFrequency;		// ÆµÂÊ
+    unsigned short wFrequency;		// é¢‘ç‡
     unsigned int	 A5[75];
     unsigned short A6;
     unsigned short A7;
@@ -27,7 +27,7 @@ typedef struct
     unsigned short wRefPoint; //
     unsigned int	 A9[36];
 } __RW_PROBE;
-#pragma pack(pop) //±£´æ¶ÔÆë×´Ì¬
+#pragma pack(pop) //ä¿å­˜å¯¹é½çŠ¶æ€
 
 Probe::Probe(ProbeType type)
 {
@@ -67,20 +67,20 @@ bool Probe::LoadFromOlympus( const QString& path, ProbeType type )
     __RW_PROBE probe_rw;
     char* readpos = (char*)&probe_rw;
 
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     QFile file(path);
     QDataStream in(&file);
     if (!file.open(QFile::ReadOnly) )
         return false;
     
-    //PAµÄ»° ,´ÓµÚËÄ¸ö×Ö½Ú¿ªÊ¼¶ÁÈ¡
+    //PAçš„è¯ ,ä»ç¬¬å››ä¸ªå­—èŠ‚å¼€å§‹è¯»å–
     int offset = type == ProbeType::PT_PA ? 4 : 0;
     file.seek(offset);
 
     if ( in.readRawData(readpos, sizeof(__RW_PROBE) - offset ) != sizeof(__RW_PROBE) - offset ) 
         return false;
 
-    //¸ñÊ½×ª»»
+    //æ ¼å¼è½¬æ¢
     this->m_probeType = type;
     this->m_model = QString(probe_rw.cModel);
     this->m_serial = QString(probe_rw.cSerial);
@@ -106,7 +106,7 @@ bool Probe::SaveToOlympus( const QString& path )
     __RW_PROBE probe_rw;
     memset(&probe_rw, 0, sizeof(__RW_PROBE));
 
-    //¸ñÊ½×ª»» 
+    //æ ¼å¼è½¬æ¢ 
     QByteArray temp = m_model.toAscii();
     if (temp.count() > 19)
         return false;
@@ -134,13 +134,13 @@ bool Probe::SaveToOlympus( const QString& path )
     probe_rw.wRefPoint = qRound(this->m_pa_refPoint * (-1000.0f));
     probe_rw.PaProbeType = uchar(this->m_pa_probeType);
 
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     QFile file(path);
     QDataStream out(&file);
     if ( !file.open(QFile::WriteOnly))
         return false;
 
-    //PAµÄ»° ,´ÓµÚËÄ¸ö×Ö½Ú¿ªÊ¼Ğ´Èë
+    //PAçš„è¯ ,ä»ç¬¬å››ä¸ªå­—èŠ‚å¼€å§‹å†™å…¥
     char* writepos = (char*)&probe_rw;
     int offset = m_probeType == ProbeType::PT_PA ? 4 : 0;
     out.writeRawData(writepos, offset);
@@ -154,7 +154,7 @@ QPointF Probe::Pa_elmPos( int index, const Wedge& wedge, float offset ) const
     float X = qAbs(wedge.Pa_priOffset());
     float Z = qAbs(wedge.Pa_height());
 
-    //·´ÏòĞ¨¿é£¬µ¹×ªÕóÔªË÷Òı
+    //åå‘æ¥”å—ï¼Œå€’è½¬é˜µå…ƒç´¢å¼•
     if (wedge.Pa_orient() == WedgeOrient::WO_REVERSAL)
         index = Pa_elmQty() - 1 - index;
 
@@ -166,7 +166,7 @@ QPointF Probe::Pa_elmPos( int index, const Wedge& wedge, float offset ) const
     return elmPos;
 }
 
-//ĞòÁĞ»¯
+//åºåˆ—åŒ–
 SERIALIZE_BEGIN(Probe)
     SERIALIZE_VAR(m_model)
     SERIALIZE_VAR(m_serial)
@@ -178,7 +178,7 @@ SERIALIZE_BEGIN(Probe)
     SERIALIZE_VAR(m_pa_refPoint)
 SERIALIZE_END
 
-//·´ĞòÁĞ»¯
+//ååºåˆ—åŒ–
 DE_SERIALIZE_BEGIN(Probe)
     DE_SERIALIZE_VAR(m_model)
     DE_SERIALIZE_VAR(m_serial)

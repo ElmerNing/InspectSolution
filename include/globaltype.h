@@ -1,4 +1,4 @@
-#ifndef GLOBALTYPE_H
+﻿#ifndef GLOBALTYPE_H
 #define GLOBALTYPE_H
 
 
