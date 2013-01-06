@@ -17,40 +17,43 @@ INCLUDEPATH += ./\
 
 PRECOMPILED_HEADER += stdafx.h
 
+QMAKE_CXXFLAGS += -std=c++0x
+
 SOURCES += \
-    src/grouplaw.cpp \
-    src/beamlaw.cpp \
-    src/focalaw.cpp \
-    src/gconfig.cpp \
-    src/probe.cpp \
     src/wedge.cpp \
-    src/solutionmodule.cpp \
-    src/serialize.cpp \
-    src/scsolution.cpp \
-    src/scgrouplaw.cpp \
-    src/enummap.cpp \
+    src/stripchartdata.cpp \
     src/solution_sc.cpp \
-    src/solutiondata_sc.cpp \
+    src/serialize.cpp \
+    src/probe.cpp \
     src/material.cpp \
+    src/inspectdata.cpp \
     src/grouplaw_sc.cpp \
-    src/beamlaw_sc.cpp
+    src/grouplaw.cpp \
+    src/groupdata.cpp \
+    src/gconfig.cpp \
+    src/datadevice.cpp \
+    src/blockdata.cpp \
+    src/beamlaw_sc.cpp \
+    src/beamlaw.cpp \
+    src/beamdata.cpp
 
 HEADERS += \
     stdafx.h \
-    include/grouplaw.h \
     include/wedge.h \
-    include/probe.h \
-    include/gconfig.h \
-    include/focalaw.h \
-    include/beamlaw.h \
-    include/solutionmodule.h \
-    include/serialize.h \
-    include/scsolution.h \
-    include/scgrouplaw.h \
-    include/qrange.h \
-    include/qobjvector.h \
+    include/stripchartdata.h \
     include/solution_sc.h \
-    include/solutiondata_sc.h \
+    include/serialize.h \
+    include/qrange.h \
+    include/probe.h \
     include/material.h \
+    include/inspectdata.h \
     include/grouplaw_sc.h \
-    include/beamlaw_sc.h
+    include/grouplaw.h \
+    include/groupdata.h \
+    include/globaltype.h \
+    include/gconfig.h \
+    include/datadevice.h \
+    include/blockdata.h \
+    include/beamlaw_sc.h \
+    include/beamlaw.h \
+    include/beamdata.h

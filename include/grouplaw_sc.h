@@ -1,6 +1,6 @@
 ﻿#ifndef GROUPLAW_SC_H__
 #define GROUPLAW_SC_H__
-
+#include "stdafx.h"
 #include "grouplaw.h"
 #include "beamlaw_sc.h"
 #include "material.h"

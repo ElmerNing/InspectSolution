@@ -1,6 +1,8 @@
 ﻿#ifndef MATERIAL_H__
 #define MATERIAL_H__
-#include <qpoint.h>
+
+#include "stdafx.h"
+
 enum WeldAreaType
 {
     WA_ROOT,

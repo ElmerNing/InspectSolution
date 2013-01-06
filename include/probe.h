@@ -1,6 +1,8 @@
 ﻿#ifndef PROBE_H
 #define PROBE_H
 
+#include "stdafx.h"
+
 class Wedge;
 
 enum PaProbeType

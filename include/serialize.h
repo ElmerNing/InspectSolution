@@ -1,9 +1,7 @@
 ﻿#ifndef SERIALIZE_H
 #define SERIALIZE_H
 
-#include <QDataStream>
-#include <QStack>
-#include <QHash>
+#include "stdafx.h"
 
 //注册可序列化的类,此类 必须继承于QObject
 #define SERIALIZE_ENABLE_CLASS(classname) \

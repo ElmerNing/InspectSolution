@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "grouplaw_sc.h"
+﻿#include "grouplaw_sc.h"
 #include "wedge.h"
 #include "probe.h"
 

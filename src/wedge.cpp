@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "wedge.h"
+﻿#include "wedge.h"
 #include "probe.h"
 
 #pragma pack(push) //保存对齐状态

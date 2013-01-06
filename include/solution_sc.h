@@ -1,5 +1,6 @@
 ﻿#ifndef SCSOLUTION_H
 #define SCSOLUTION_H
+#include "stdafx.h"
 #include "gconfig.h"
 #include "grouplaw_sc.h"
 #include "material.h"

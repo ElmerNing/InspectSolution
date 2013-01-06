@@ -1,7 +1,9 @@
 ﻿#ifndef groupdata_h__
 #define groupdata_h__
 
+#include "stdafx.h"
 #include "beamdata.h"
+
 class GroupData
 {
 public:

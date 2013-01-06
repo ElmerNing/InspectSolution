@@ -1,6 +1,6 @@
-﻿#include "stdafx.h"
-#include "solution_sc.h"
+﻿#include "solution_sc.h"
 #include <math.h>
+#include <float.h>
 
 static inline int GetAperture()
 {
@@ -85,7 +85,7 @@ void Solution_sc::PaProbeOffset()
         ranges.append(range);
     }
     //求取所有range的交集
-    QRangeF r( 0, std::numeric_limits<float>::max());
+    QRangeF r( 0, FLT_MAX);
     foreach (QRangeF range, ranges)
     {
         float start = qMax(range.Start(), r.Start());
@@ -108,7 +108,7 @@ QRangeF Solution_sc::PaProbeOffset_helper( const WeldArea& area )
 
     //没有使用
     if (area.Division() == 0)
-        return QRangeF(0, std::numeric_limits<float>::max());
+        return QRangeF(0, FLT_MAX);
 
     //聚焦点范围
     QPointF focusStart(0,0), focusEnd(0,0);

@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "gconfig.h"
+﻿#include "gconfig.h"
 
 Gconfig::Gconfig() :
     m_boardEnable(3, true) ,

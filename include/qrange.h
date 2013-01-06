@@ -1,6 +1,7 @@
 ﻿#ifndef QRANGE_H
 #define QRANGE_H
-#include <qmap.h>
+
+#include "stdafx.h"
 
 template <class T>
 class QRange

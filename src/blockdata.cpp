@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "BlockData.h"
+﻿#include "blockdata.h"
 
 SERIALIZE_BEGIN(BlockInfo)
     SERIALIZE_VAR(m_beamQty)

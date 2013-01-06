@@ -1,6 +1,7 @@
 ﻿#ifndef BEAMLAW_H
 #define BEAMLAW_H
 
+#include "stdafx.h"
 #include "qrange.h"
 
 //3个探头通道
@@ -63,7 +64,7 @@ public:
     ushort RxDelay(int index) { return m_delay[index].RxDelay; }
     //闸门测量范围
     QRangeF GateRange(Gate gate) { return m_gateRange[gate]; }
-    QRangeF GateRange(Gate gate, QRangeF range) { m_gateRange[gate] = range; }
+    void GateRange(Gate gate, QRangeF range) { m_gateRange[gate] = range; }
 
 private:
     //激发阵元数(1-32)

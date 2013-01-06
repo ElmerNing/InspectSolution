@@ -1,6 +1,7 @@
 ﻿#ifndef BEAMLAW_SC_H__
 #define BEAMLAW_SC_H__
 
+#include "stdafx.h"
 #include "beamlaw.h"
 class BeamLaw_sc : public BeamLaw
 {

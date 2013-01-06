@@ -1,6 +1,8 @@
 ﻿#ifndef beamdata_h__
 #define beamdata_h__
 
+#include "stdafx.h"
+
 class BeamData
 {
 public:

@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "probe.h"
+﻿#include "probe.h"
 #include "wedge.h"
 
 #pragma pack(push) //保存对齐状态
@@ -77,7 +76,7 @@ bool Probe::LoadFromOlympus( const QString& path, ProbeType type )
     int offset = type == ProbeType::PT_PA ? 4 : 0;
     file.seek(offset);
 
-    if ( in.readRawData(readpos, sizeof(__RW_PROBE) - offset ) != sizeof(__RW_PROBE) - offset ) 
+    if ( in.readRawData(readpos, sizeof(__RW_PROBE) - offset ) != int(sizeof(__RW_PROBE) - offset) )
         return false;
 
     //格式转换

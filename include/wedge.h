@@ -1,6 +1,8 @@
 ﻿#ifndef WEDGE_H
 #define WEDGE_H
 
+#include "stdafx.h"
+
 class Probe;
 
 enum WedgeWaveType

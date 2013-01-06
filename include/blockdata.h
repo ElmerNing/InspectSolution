@@ -1,6 +1,7 @@
 ﻿#ifndef blockdata_h__
 #define blockdata_h__
 
+#include "stdafx.h"
 #include "groupdata.h"
 
 class BlockInfo;

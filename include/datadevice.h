@@ -1,8 +1,9 @@
 ﻿#ifndef datadevice_h__
 #define datadevice_h__
 
-#include <QFile>
+#include "stdafx.h"
 #include "inspectdata.h"
+
 //数据采集设备, 基类,
 class DataDevice
 {

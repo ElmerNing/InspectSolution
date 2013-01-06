@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "Material.h"
+﻿#include "material.h"
 
 SERIALIZE_BEGIN(WeldFill)
     SERIALIZE_VAR(type)

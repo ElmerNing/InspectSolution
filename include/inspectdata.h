@@ -1,7 +1,10 @@
 ﻿#ifndef inspectdata_h__
 #define inspectdata_h__
 
+#include "stdafx.h"
+#include <QObject>
 #include "blockdata.h"
+
 class InspectData : QObject
 {
     Q_OBJECT

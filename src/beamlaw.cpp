@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "beamlaw.h"
+﻿#include "beamlaw.h"
 
 SERIALIZE_BEGIN(ElmDelay)
     SERIALIZE_VAR(TxDelay)

@@ -1,6 +1,8 @@
 ﻿#ifndef GCONFIG_H
 #define GCONFIG_H
 
+#include "stdafx.h"
+
 //Pa电压
 enum PaVoltage
 {

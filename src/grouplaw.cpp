@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "grouplaw.h"
+﻿#include "grouplaw.h"
 
 GroupLaw::GroupLaw() 
 {

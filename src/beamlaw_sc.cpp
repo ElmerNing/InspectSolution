@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "beamlaw_sc.h"
+﻿#include "beamlaw_sc.h"
 
 
 BeamLaw_sc::BeamLaw_sc(void)

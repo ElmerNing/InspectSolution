@@ -1,4 +1,8 @@
-﻿#pragma once
+﻿#ifndef stripchartdata_h__
+#define stripchartdata_h__
+
+#include "stdafx.h"
+
 class stripchartdata
 {
 public:
@@ -6,3 +10,4 @@ public:
     ~stripchartdata(void);
 };
 
+#endif // stripchartdata_h__

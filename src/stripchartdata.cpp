@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "stripchartdata.h"
+﻿#include "stripchartdata.h"
 
 
 stripchartdata::stripchartdata(void)
